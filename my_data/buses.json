@@ -1,0 +1,45 @@
+{
+  "buses": [
+    {
+      "busName": "Luxuria Travels",
+      "busCode": "LX101",
+      "from": "Jhargram",
+      "to": "Kolkata",
+      "stops": [
+        { "name": "Jhargram", "time": "06:00 AM" },
+        { "name": "Kharagpur", "time": "07:00 AM" },
+        { "name": "Midnapore", "time": "07:45 AM" },
+        { "name": "Kolaghat", "time": "09:15 AM" },
+        { "name": "Howrah", "time": "10:30 AM" },
+        { "name": "Kolkata", "time": "10:45 AM" }
+      ]
+    },
+    {
+      "busName": "KPN Travels",
+      "busCode": "KPN202",
+      "from": "Jhargram",
+      "to": "Digha",
+      "stops": [
+        { "name": "Jhargram", "time": "05:30 AM" },
+        { "name": "Kharagpur", "time": "06:15 AM" },
+        { "name": "Belda", "time": "07:10 AM" },
+        { "name": "Contai", "time": "08:45 AM" },
+        { "name": "Digha", "time": "09:30 AM" }
+      ]
+    },
+    {
+      "busName": "Milano Travels",
+      "busCode": "ML303",
+      "from": "Jhargram",
+      "to": "Asansol",
+      "stops": [
+        { "name": "Jhargram", "time": "04:45 AM" },
+        { "name": "Midnapore", "time": "05:30 AM" },
+        { "name": "Bishnupur", "time": "07:00 AM" },
+        { "name": "Bankura", "time": "08:00 AM" },
+        { "name": "Durgapur", "time": "09:45 AM" },
+        { "name": "Asansol", "time": "10:30 AM" }
+      ]
+    }
+  ]
+}
