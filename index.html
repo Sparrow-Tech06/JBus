@@ -1,1 +1,211 @@
-hii
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Booking UI</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 660px;
+    }
+    header .header-img {
+      width: 100%;
+      height: 180px;
+      background: url("https://picsum.photos/800/300?travel") center/cover no-repeat;
+      border-radius: 0 0 25px 25px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    }
+    .form-label i {
+      background: #3569b9;
+      font-size:26px;
+      padding: 4px 6px;
+      border-radius: 50%;
+      color: #fff;
+    }
+    .search-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+      margin-top: -70px;
+      position: relative;
+      z-index: 1;
+    }
+    .search-btn {
+      background: #3569b9;
+      color: #fff;
+      border-radius: 25px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      transition: 0.3s;
+    }
+    .search-btn:hover {
+      background: #274d8c;
+    }
+    /* Horizontal Scroll Cards */
+    .traveler-scroll {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+    }
+    .traveler-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .traveler-card {
+      flex: 0 0 250px;
+      scroll-snap-align: start;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s;
+      position: relative;
+    }
+    .traveler-card:hover {
+      transform: scale(0.96);
+    }
+    .traveler-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: none;
+    }
+    /* Skeleton Loader */
+    .skeleton {
+      width: 100%;
+      height: 140px;
+      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+    }
+    @keyframes skeleton-loading {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-light bg-white shadow-sm fixed-top">
+    <div class="container d-flex justify-content-between">
+      <a class="navbar-brand fw-bold text-primary" href="#"><i class="bi bi-bus-front-fill"></i> JBus</a>
+      <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Offcanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">My Bookings</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Header Image -->
+  <div class="header-img mt-5"></div>
+</header>
+
+<!-- Main Content -->
+<main class="container mb-4">
+  <!-- Search Box -->
+  <section class="search-box">
+    <form>
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-geo-alt me-2"></i>From</label>
+        <input type="text" class="form-control" placeholder="Enter departure location">
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-geo me-2"></i>To</label>
+        <input type="text" class="form-control" placeholder="Enter destination location">
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><i class="bi bi-upc-scan me-2"></i>Search by Bus Code</label>
+        <input type="text" class="form-control" placeholder="Enter bus code">
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="search-btn">Search</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Best Travelers -->
+  <section>
+    <h5 class="fw-bold mt-4 mb-3">Best Travelers</h5>
+    <div class="traveler-scroll">
+      <a href="#" class="traveler-card">
+        <div class="skeleton"></div>
+        <img src="https://picsum.photos/400/200?bus1" alt="Traveler 1">
+        <div class="p-3">
+          <h6 class="fw-bold">LUXURIA</h6>
+          <p class="small mb-1 text-muted">Premium comfort with WiFi & AC</p>
+          <p class="small mb-0"><i class="bi bi-star-fill text-warning"></i> 4.8 Rating</p>
+        </div>
+      </a>
+      <a href="#" class="traveler-card">
+        <div class="skeleton"></div>
+        <img src="https://picsum.photos/400/200?bus2" alt="Traveler 2">
+        <div class="p-3">
+          <h6 class="fw-bold">KPN TRAVELS</h6>
+          <p class="small mb-1 text-muted">Reliable service & punctual timing</p>
+          <p class="small mb-0"><i class="bi bi-star-fill text-warning"></i> 4.6 Rating</p>
+        </div>
+      </a>
+      <a href="#" class="traveler-card">
+        <div class="skeleton"></div>
+        <img src="https://picsum.photos/400/200?bus3" alt="Traveler 3">
+        <div class="p-3">
+          <h6 class="fw-bold">MILANO TRAVELS</h6>
+          <p class="small mb-1 text-muted">Luxury coaches with sleeper seats</p>
+          <p class="small mb-0"><i class="bi bi-star-fill text-warning"></i> 4.7 Rating</p>
+        </div>
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="text-center py-3 text-muted small">
+  © 2025 JBus. All rights reserved.
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Skeleton Loader Hide after image load
+  document.querySelectorAll(".traveler-card").forEach(card => {
+    const img = card.querySelector("img");
+    const skeleton = card.querySelector(".skeleton");
+    img.addEventListener("load", () => {
+      skeleton.style.display = "none";
+      img.style.display = "block";
+    });
+  });
+</script>
+</body>
+</html>
