@@ -16,16 +16,35 @@
     .container {
       max-width: 660px;
     }
-    header .header-img {
+    header .header-wrapper {
       width: 100%;
       height: 180px;
-      background: url("https://picsum.photos/800/300?travel") center/cover no-repeat;
       border-radius: 0 0 25px 25px;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+      background: #3569b9;
+    }
+    header .header-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    .skeleton {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #d7d7d7 25%, #ececec 50%, #d7d7d7 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+    }
+    @keyframes skeleton-loading {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
     }
     .form-label i {
       background: #3569b9;
-      font-size:26px;
+      font-size: 26px;
       padding: 4px 6px;
       border-radius: 50%;
       color: #fff;
@@ -83,17 +102,33 @@
       object-fit: cover;
       display: none;
     }
-    /* Skeleton Loader */
-    .skeleton {
-      width: 100%;
-      height: 140px;
-      background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-      background-size: 200% 100%;
-      animation: skeleton-loading 1.5s infinite;
+    .navbar {
+      background: #3569b9;
+      color: #fff ;
     }
-    @keyframes skeleton-loading {
-      from { background-position: 200% 0; }
-      to { background-position: -200% 0; }
+    .navbar .navbar-brand,.btn {
+      background: #3569b9;
+      color: #fff ;
+      font-size: 24px ;
+    }
+    /* Offcanvas Modern Menu */
+    .offcanvas-body .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background 0.3s;
+      color: #333;
+    }
+    .offcanvas-body .nav-link:hover {
+      background: #f1f4fb;
+      color: #3569b9;
+    }
+    .offcanvas-body .nav-link i {
+      font-size: 18px;
+      color: #3569b9;
     }
   </style>
 </head>
@@ -102,33 +137,36 @@
 <!-- Header -->
 <header>
   <!-- Navbar -->
-  <nav class="navbar navbar-light bg-white shadow-sm fixed-top">
+  <nav class="navbar shadow-sm fixed-top">
     <div class="container d-flex justify-content-between">
-      <a class="navbar-brand fw-bold text-primary" href="#"><i class="bi bi-bus-front-fill"></i> JBus</a>
-      <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
+      <a class="navbar-brand fw-bold" href="#"><i class="bi bi-bus-front-fill"></i> JBus </a>
+      <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
         <i class="bi bi-list"></i>
       </button>
     </div>
   </nav>
 
-  <!-- Offcanvas -->
+  <!-- Offcanvas Menu -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title">Menu</h5>
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title fw-bold text-primary"><i class="bi bi-menu-button-wide me-2"></i> Menu</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
       <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">My Bookings</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-house-door"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-ticket-detailed"></i> My Bookings</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-gift"></i> Offers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-headset"></i> Support</a></li>
       </ul>
     </div>
   </div>
 
-  <!-- Header Image -->
-  <div class="header-img mt-5"></div>
+  <!-- Header Image with Skeleton -->
+  <div class="header-wrapper mt-5">
+    <div class="skeleton"></div>
+    <img src="https://picsum.photos/800/300?travel" alt="Header Image" id="headerImg">
+  </div>
 </header>
 
 <!-- Main Content -->
@@ -197,7 +235,7 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Skeleton Loader Hide after image load
+  // Traveler cards skeleton loader
   document.querySelectorAll(".traveler-card").forEach(card => {
     const img = card.querySelector("img");
     const skeleton = card.querySelector(".skeleton");
@@ -206,6 +244,15 @@
       img.style.display = "block";
     });
   });
+
+  // Header image skeleton loader
+  const headerImg = document.getElementById("headerImg");
+  const headerSkeleton = headerImg.previousElementSibling;
+  headerImg.addEventListener("load", () => {
+    headerSkeleton.style.display = "none";
+    headerImg.style.display = "block";
+  });
 </script>
 </body>
 </html>
+
