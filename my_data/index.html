@@ -130,7 +130,9 @@
 
       let foundBuses = buses.filter(bus => {
         const stops = bus.stops.map(s => s.name.toLowerCase());
-        return stops.includes(from) && stops.includes(to);
+        const fromIndex = stops.indexOf(from);
+        const toIndex = stops.indexOf(to);
+        return fromIndex !== -1 && toIndex !== -1 && fromIndex < toIndex;
       });
 
       if (foundBuses.length === 0) {
