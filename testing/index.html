@@ -8,6 +8,7 @@
   <style>
     body { background: #f8f9fa; }
     .card { border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .notfound { color: red; font-size: 14px; display: none; }
   </style>
 </head>
 <body class="container py-5">
@@ -16,16 +17,54 @@
   <form id="searchForm" class="card p-4 mx-auto" style="max-width:500px;">
     <div class="mb-3">
       <label class="form-label">From</label>
-      <input type="text" id="fromInput" class="form-control" placeholder="Enter starting point" required>
+      <input type="text" id="fromInput" class="form-control" placeholder="Enter starting point" list="stopsList" required>
+      <div id="fromNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
       <label class="form-label">To</label>
-      <input type="text" id="toInput" class="form-control" placeholder="Enter destination" required>
+      <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList" required>
+      <div id="toNotFound" class="notfound">Not found, try another</div>
     </div>
+    <datalist id="stopsList"></datalist>
     <button type="submit" class="btn btn-primary w-100">Search</button>
   </form>
 
   <script>
+    let allStops = [];
+
+    // fetch bus stops from buses.json
+    fetch("buses.json")
+      .then(res => res.json())
+      .then(data => {
+        const buses = data.buses;
+        let stopsSet = new Set();
+        buses.forEach(bus => {
+          bus.stops.forEach(s => stopsSet.add(s.name));
+        });
+        allStops = Array.from(stopsSet);
+
+        // add to datalist
+        const datalist = document.getElementById("stopsList");
+        datalist.innerHTML = allStops.map(stop => `<option value="${stop}">`).join("");
+      });
+
+    // live check "from" input
+    document.getElementById("fromInput").addEventListener("input", e => {
+      const val = e.target.value.trim().toLowerCase();
+      document.getElementById("fromNotFound").style.display = 
+        val && !allStops.some(stop => stop.toLowerCase().startsWith(val)) 
+        ? "block" : "none";
+    });
+
+    // live check "to" input
+    document.getElementById("toInput").addEventListener("input", e => {
+      const val = e.target.value.trim().toLowerCase();
+      document.getElementById("toNotFound").style.display = 
+        val && !allStops.some(stop => stop.toLowerCase().startsWith(val)) 
+        ? "block" : "none";
+    });
+
+    // on submit redirect to results page
     document.getElementById("searchForm").addEventListener("submit", e => {
       e.preventDefault();
       const from = document.getElementById("fromInput").value.trim();
