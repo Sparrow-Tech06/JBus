@@ -1,44 +1,41 @@
 {
   "buses": [
     {
-      "busName": "Luxuria Travels",
-      "busCode": "LX101",
+      "no": "JB101",
+      "name": "Jhargram Express",
       "from": "Jhargram",
       "to": "Kolkata",
+      "image": "bus1.jpg",
       "stops": [
         { "name": "Jhargram", "time": "06:00 AM" },
         { "name": "Kharagpur", "time": "07:00 AM" },
-        { "name": "Midnapore", "time": "07:45 AM" },
-        { "name": "Kolaghat", "time": "09:15 AM" },
-        { "name": "Howrah", "time": "10:30 AM" },
-        { "name": "Kolkata", "time": "10:45 AM" }
+        { "name": "Kolaghat", "time": "09:00 AM" },
+        { "name": "Kolkata", "time": "11:00 AM" }
       ]
     },
     {
-      "busName": "KPN Travels",
-      "busCode": "KPN202",
-      "from": "Jhargram",
-      "to": "Digha",
+      "no": "JB202",
+      "name": "Jungle Mahal Bus",
+      "from": "Kolkata",
+      "to": "Jhargram",
+      "image": "bus2.jpg",
       "stops": [
-        { "name": "Jhargram", "time": "05:30 AM" },
-        { "name": "Kharagpur", "time": "06:15 AM" },
-        { "name": "Belda", "time": "07:10 AM" },
-        { "name": "Contai", "time": "08:45 AM" },
-        { "name": "Digha", "time": "09:30 AM" }
+        { "name": "Kolkata", "time": "02:00 PM" },
+        { "name": "Kolaghat", "time": "04:00 PM" },
+        { "name": "Kharagpur", "time": "05:30 PM" },
+        { "name": "Jhargram", "time": "07:00 PM" }
       ]
     },
     {
-      "busName": "Milano Travels",
-      "busCode": "ML303",
-      "from": "Jhargram",
-      "to": "Asansol",
+      "no": "JB303",
+      "name": "Medinipur Local",
+      "from": "Medinipur",
+      "to": "Jhargram",
+      "image": "bus3.jpg",
       "stops": [
-        { "name": "Jhargram", "time": "04:45 AM" },
-        { "name": "Midnapore", "time": "05:30 AM" },
-        { "name": "Bishnupur", "time": "07:00 AM" },
-        { "name": "Bankura", "time": "08:00 AM" },
-        { "name": "Durgapur", "time": "09:45 AM" },
-        { "name": "Asansol", "time": "10:30 AM" }
+        { "name": "Medinipur", "time": "08:00 AM" },
+        { "name": "Kharagpur", "time": "09:00 AM" },
+        { "name": "Jhargram", "time": "10:00 AM" }
       ]
     }
   ]
