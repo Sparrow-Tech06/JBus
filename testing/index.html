@@ -42,27 +42,39 @@
           bus.stops.forEach(s => stopsSet.add(s.name));
         });
         allStops = Array.from(stopsSet);
-
-        // add to datalist
-        const datalist = document.getElementById("stopsList");
-        datalist.innerHTML = allStops.map(stop => `<option value="${stop}">`).join("");
       });
 
-    // live check "from" input
-    document.getElementById("fromInput").addEventListener("input", e => {
-      const val = e.target.value.trim().toLowerCase();
-      document.getElementById("fromNotFound").style.display = 
-        val && !allStops.some(stop => stop.toLowerCase().startsWith(val)) 
-        ? "block" : "none";
-    });
+    function updateSuggestions(inputId, notFoundId) {
+      const input = document.getElementById(inputId);
+      const notFound = document.getElementById(notFoundId);
+      const datalist = document.getElementById("stopsList");
 
-    // live check "to" input
-    document.getElementById("toInput").addEventListener("input", e => {
-      const val = e.target.value.trim().toLowerCase();
-      document.getElementById("toNotFound").style.display = 
-        val && !allStops.some(stop => stop.toLowerCase().startsWith(val)) 
-        ? "block" : "none";
-    });
+      input.addEventListener("input", e => {
+        const val = e.target.value.trim().toLowerCase();
+
+        // Only start suggesting after 2+ characters
+        if (val.length < 2) {
+          datalist.innerHTML = "";
+          notFound.style.display = "none";
+          return;
+        }
+
+        // filter stops
+        const matches = allStops.filter(stop => stop.toLowerCase().includes(val));
+
+        if (matches.length === 0) {
+          notFound.style.display = "block";
+          datalist.innerHTML = "";
+        } else {
+          notFound.style.display = "none";
+          datalist.innerHTML = matches.map(stop => `<option value="${stop}">`).join("");
+        }
+      });
+    }
+
+    // apply suggestion system to both inputs
+    updateSuggestions("fromInput", "fromNotFound");
+    updateSuggestions("toInput", "toNotFound");
 
     // on submit redirect to results page
     document.getElementById("searchForm").addEventListener("submit", e => {
