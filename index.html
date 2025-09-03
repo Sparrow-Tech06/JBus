@@ -106,13 +106,19 @@
       display: none;
     }
     .navbar {
-      background: #3569b9;
+      background: #3569b9 !important;
       color: #fff ;
     }
-    .navbar .navbar-brand,.btn {
-      background: #3569b9;
-      color: #fff ;
-      font-size: 24px ;
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .district {
+      font-size: 0.85rem;
+      color: #e5e5e5;
+      margin-left: 2rem;
+      margin-top: -5px;
     }
     /* Offcanvas Modern Menu */
     .offcanvas {
@@ -121,24 +127,22 @@
     .offcanvas-header {
       background: #3569b9;
     }
-    .offcanvas-body .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 15px;
-      font-weight: 500;
-      border-radius: 8px;
-      transition: background 0.3s;
+    .offcanvas-title {
+      color: #fff;
+      font-weight: 600;
+    }
+    .btn-close-white {
+      filter: invert(1);
+    }
+    .nav-link {
       color: #333;
     }
-    .offcanvas-body .nav-link:hover {
-      background: #f1f4fb;
+    .nav-link:hover {
+      background: #f8f9fa;
       color: #3569b9;
     }
-    .offcanvas-body .nav-link i {
-      font-size: 18px;
-      color: #3569b9;
-    }
+
+    
   </style>
 </head>
 <body>
