@@ -44,7 +44,6 @@
     let allStops = [];
     let allBusNos = [];
 
-    // fetch bus stops & bus numbers from buses.json
     fetch("buses.json")
       .then(res => res.json())
       .then(data => {
@@ -61,7 +60,6 @@
         allBusNos = Array.from(busNoSet);
       });
 
-    // suggestion for stops
     function updateSuggestions(inputId, notFoundId, sourceArray, datalistId) {
       const input = document.getElementById(inputId);
       const notFound = document.getElementById(notFoundId);
@@ -85,12 +83,10 @@
       });
     }
 
-    // apply for stops & bus no
     updateSuggestions("fromInput", "fromNotFound", allStops, "stopsList");
     updateSuggestions("toInput", "toNotFound", allStops, "stopsList");
     updateSuggestions("busNoInput", "busNoNotFound", allBusNos, "busNoList");
 
-    // on submit
     document.getElementById("searchForm").addEventListener("submit", e => {
       e.preventDefault();
       const from = document.getElementById("fromInput").value.trim();
@@ -98,7 +94,6 @@
       const busNo = document.getElementById("busNoInput").value.trim();
 
       if (busNo) {
-        // priority to Bus No
         window.location.href = `busno.html?busNo=${encodeURIComponent(busNo)}`;
       } else if (from && to) {
         window.location.href = `results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
