@@ -6,10 +6,10 @@
       "from": "Jhargram",
       "to": "Kolkata",
       "stops": [
-        { "name": "Jhargram" },
-        { "name": "Midnapore" },
-        { "name": "Kolaghat" },
-        { "name": "Kolkata" }
+        { "name": "Jhargram", "time": "06:00 AM" },
+        { "name": "Midnapore", "time": "07:15 AM" },
+        { "name": "Kolaghat", "time": "08:30 AM" },
+        { "name": "Kolkata", "time": "10:00 AM" }
       ],
       "image": "https://picsum.photos/seed/bus1/400/200"
     },
@@ -19,23 +19,10 @@
       "from": "Kolkata",
       "to": "Jhargram",
       "stops": [
-        { "name": "Kolkata" },
-        { "name": "Kolaghat" },
-        { "name": "Midnapore" },
-        { "name": "Jhargram" }
-      ],
-      "image": "https://picsum.photos/seed/bus2/400/200"
-    },
-    {
-      "no": "B104",
-      "name": "Kolkata Deluxe",
-      "from": "Kolkata",
-      "to": "Jhargram",
-      "stops": [
-        { "name": "Kolkata" },
-        { "name": "Kolaghat" },
-        { "name": "Midnapore" },
-        { "name": "Jhargram" }
+        { "name": "Kolkata", "time": "02:00 PM" },
+        { "name": "Kolaghat", "time": "03:15 PM" },
+        { "name": "Midnapore", "time": "04:30 PM" },
+        { "name": "Jhargram", "time": "06:00 PM" }
       ],
       "image": "https://picsum.photos/seed/bus2/400/200"
     },
@@ -45,10 +32,10 @@
       "from": "Midnapore",
       "to": "Kolkata",
       "stops": [
-        { "name": "Midnapore" },
-        { "name": "Kolaghat" },
-        { "name": "Howrah" },
-        { "name": "Kolkata" }
+        { "name": "Midnapore", "time": "09:00 AM" },
+        { "name": "Kolaghat", "time": "10:15 AM" },
+        { "name": "Howrah", "time": "11:30 AM" },
+        { "name": "Kolkata", "time": "12:00 PM" }
       ],
       "image": "https://picsum.photos/seed/bus3/400/200"
     }
