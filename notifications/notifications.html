@@ -11,17 +11,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
   <style>
-    body { background: #f8f9fa; font-family: "Segoe UI", Arial, sans-serif; }
+    body { background: #ffffff; font-family: "Segoe UI", Arial, sans-serif; }
     
     /* Notification Cards */
     .notification-card {
       cursor: pointer;
       transition: all 0.25s ease;
       border: none;
-      border-radius: 14px;
+      border-radius: 10px;
     }
     .notification-card:hover {
-      transform: translateY(-3px);
+      transform: scale(0.98) ;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .notification-logo {
@@ -132,7 +132,7 @@
             div.className = "card p-2 mb-2 notification-card shadow-sm";
             div.innerHTML = `
               <div class="d-flex align-items-center">
-                <img src="https://cdn-icons-png.flaticon.com/512/888/888859.png" alt="Logo" class="notification-logo me-3">
+                <img src="Assets/jbus.png" alt="Logo" class="notification-logo me-3">
                 <div>
                   <div class="fw-semibold">${noti.title}</div>
                   <small class="text-muted">${noti.time}</small>
