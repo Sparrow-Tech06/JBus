@@ -1,0 +1,25 @@
+{
+  "recentlyReported": [
+    {
+      "item": "Samsung Galaxy A50",
+      "bus": "Jhargram Express (WB-34-1122)",
+      "date": "2025-09-01T08:30",
+      "reportedBy": "Rakesh Das",
+      "icon": "bi-phone"
+    },
+    {
+      "item": "Black Leather Wallet",
+      "bus": "Bandhgora Local (WB-29-5533)",
+      "date": "2025-08-30T18:15",
+      "reportedBy": "Anjali Singh",
+      "icon": "bi-wallet2"
+    },
+    {
+      "item": "Blue Backpack",
+      "bus": "Medinipur Express (WB-45-7788)",
+      "date": "2025-08-28T09:10",
+      "reportedBy": "Sourav Ghosh",
+      "icon": "bi-bag-fill"
+    }
+  ]
+}
