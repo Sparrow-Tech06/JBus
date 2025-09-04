@@ -1,42 +1,43 @@
 {
   "buses": [
     {
-      "no": "JB101",
+      "no": "B101",
       "name": "Jhargram Express",
       "from": "Jhargram",
       "to": "Kolkata",
-      "image": "bus1.jpg",
       "stops": [
-        { "name": "Jhargram", "time": "06:00 AM" },
-        { "name": "Kharagpur", "time": "07:00 AM" },
-        { "name": "Kolaghat", "time": "09:00 AM" },
-        { "name": "Kolkata", "time": "11:00 AM" }
-      ]
+        { "name": "Jhargram" },
+        { "name": "Midnapore" },
+        { "name": "Kolaghat" },
+        { "name": "Kolkata" }
+      ],
+      "image": "https://picsum.photos/seed/bus1/400/200"
     },
     {
-      "no": "JB202",
-      "name": "Jungle Mahal Bus",
+      "no": "B102",
+      "name": "Kolkata Deluxe",
       "from": "Kolkata",
       "to": "Jhargram",
-      "image": "bus2.jpg",
       "stops": [
-        { "name": "Kolkata", "time": "02:00 PM" },
-        { "name": "Kolaghat", "time": "04:00 PM" },
-        { "name": "Kharagpur", "time": "05:30 PM" },
-        { "name": "Jhargram", "time": "07:00 PM" }
-      ]
+        { "name": "Kolkata" },
+        { "name": "Kolaghat" },
+        { "name": "Midnapore" },
+        { "name": "Jhargram" }
+      ],
+      "image": "https://picsum.photos/seed/bus2/400/200"
     },
     {
-      "no": "JB303",
-      "name": "Medinipur Local",
-      "from": "Medinipur",
-      "to": "Jhargram",
-      "image": "bus3.jpg",
+      "no": "B103",
+      "name": "Midnapore Local",
+      "from": "Midnapore",
+      "to": "Kolkata",
       "stops": [
-        { "name": "Medinipur", "time": "08:00 AM" },
-        { "name": "Kharagpur", "time": "09:00 AM" },
-        { "name": "Jhargram", "time": "10:00 AM" }
-      ]
+        { "name": "Midnapore" },
+        { "name": "Kolaghat" },
+        { "name": "Howrah" },
+        { "name": "Kolkata" }
+      ],
+      "image": "https://picsum.photos/seed/bus3/400/200"
     }
   ]
 }
