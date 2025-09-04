@@ -15,55 +15,43 @@
 
   <h2 class="text-center mb-4">Search Bus</h2>
   <form id="searchForm" class="card p-4 mx-auto" style="max-width:500px;">
-    <!-- From -->
     <div class="mb-3">
       <label class="form-label">From</label>
       <input type="text" id="fromInput" class="form-control" placeholder="Enter starting point" list="stopsList">
       <div id="fromNotFound" class="notfound">Not found, try another</div>
     </div>
-    <!-- To -->
     <div class="mb-3">
       <label class="form-label">To</label>
       <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList">
       <div id="toNotFound" class="notfound">Not found, try another</div>
     </div>
-    <!-- Bus No -->
     <div class="mb-3">
       <label class="form-label">Bus No</label>
-      <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus number (e.g. JB101)" list="busNoList">
-      <div id="busNoNotFound" class="notfound">Not found, try another</div>
+      <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus no (e.g. B101)">
     </div>
-
     <datalist id="stopsList"></datalist>
-    <datalist id="busNoList"></datalist>
-
     <button type="submit" class="btn btn-primary w-100">Search</button>
   </form>
 
   <script>
     let allStops = [];
-    let allBusNos = [];
 
+    // fetch bus stops
     fetch("buses.json")
       .then(res => res.json())
       .then(data => {
         const buses = data.buses;
         let stopsSet = new Set();
-        let busNoSet = new Set();
-
         buses.forEach(bus => {
-          busNoSet.add(bus.no);
           bus.stops.forEach(s => stopsSet.add(s.name));
         });
-
         allStops = Array.from(stopsSet);
-        allBusNos = Array.from(busNoSet);
       });
 
-    function updateSuggestions(inputId, notFoundId, sourceArray, datalistId) {
+    function updateSuggestions(inputId, notFoundId) {
       const input = document.getElementById(inputId);
       const notFound = document.getElementById(notFoundId);
-      const datalist = document.getElementById(datalistId);
+      const datalist = document.getElementById("stopsList");
 
       input.addEventListener("input", e => {
         const val = e.target.value.trim().toLowerCase();
@@ -72,35 +60,36 @@
           notFound.style.display = "none";
           return;
         }
-        const matches = sourceArray.filter(item => item.toLowerCase().includes(val));
+        const matches = allStops.filter(stop => stop.toLowerCase().includes(val));
         if (matches.length === 0) {
           notFound.style.display = "block";
           datalist.innerHTML = "";
         } else {
           notFound.style.display = "none";
-          datalist.innerHTML = matches.map(item => `<option value="${item}">`).join("");
+          datalist.innerHTML = matches.map(stop => `<option value="${stop}">`).join("");
         }
       });
     }
 
-    updateSuggestions("fromInput", "fromNotFound", allStops, "stopsList");
-    updateSuggestions("toInput", "toNotFound", allStops, "stopsList");
-    updateSuggestions("busNoInput", "busNoNotFound", allBusNos, "busNoList");
+    updateSuggestions("fromInput", "fromNotFound");
+    updateSuggestions("toInput", "toNotFound");
 
+    // on submit
     document.getElementById("searchForm").addEventListener("submit", e => {
       e.preventDefault();
       const from = document.getElementById("fromInput").value.trim();
       const to = document.getElementById("toInput").value.trim();
       const busNo = document.getElementById("busNoInput").value.trim();
 
-      if (busNo) {
-        window.location.href = `busno.html?busNo=${encodeURIComponent(busNo)}`;
-      } else if (from && to) {
+      if(busNo){ 
+        window.location.href = `bus.html?no=${encodeURIComponent(busNo)}`;
+      } else if(from && to){
         window.location.href = `results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
       } else {
-        alert("Please enter From & To or Bus No.");
+        alert("Please enter From-To or Bus No");
       }
     });
   </script>
 </body>
 </html>
+
