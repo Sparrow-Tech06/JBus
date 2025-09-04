@@ -40,7 +40,7 @@
                   </h2>
                   <div id="collapse-${bus.no}" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                      <ul>${bus.stops.map(s => `<li>${s.name}</li>`).join("")}</ul>
+                      <ul>${bus.stops.map(s => `<li><strong>${s.time}</strong> - ${s.name}</li>`).join("")}</ul>
                     </div>
                   </div>
                 </div>
