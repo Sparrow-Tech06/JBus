@@ -27,6 +27,19 @@
       "image": "https://picsum.photos/seed/bus2/400/200"
     },
     {
+      "no": "B104",
+      "name": "Kolkata Deluxe",
+      "from": "Kolkata",
+      "to": "Jhargram",
+      "stops": [
+        { "name": "Kolkata" },
+        { "name": "Kolaghat" },
+        { "name": "Midnapore" },
+        { "name": "Jhargram" }
+      ],
+      "image": "https://picsum.photos/seed/bus2/400/200"
+    },
+    {
       "no": "B103",
       "name": "Midnapore Local",
       "from": "Midnapore",
