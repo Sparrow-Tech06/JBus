@@ -20,6 +20,7 @@
         --card: #ffffff ;
         --border: ffffff ;
         --shadow1: 0px 4px 12px rgba(0,0,0,0.08);
+        --text-color: #000000 ;
     }
   @media (prefers-color-scheme: dark) {
    :root {
@@ -28,8 +29,13 @@
         --card: #111527 ;
         --border: #1b2136 ;
         --shadow-1: 0 6px 18px rgba(0,0,0,.28), 0 1px 0 rgba(255,255,255,.02) inset;
+        --text-color: #ffffff ;
     }
    }
+
+  h5 { color: var(--text-color) ; }
+  h6 { color: var(--text-color) ; }
+  p  { color: var(--text-color) ; }
 
 /******************************************************/
     * {
