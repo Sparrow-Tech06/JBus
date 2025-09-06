@@ -14,6 +14,18 @@
   <link rel="preload" as="image" href="Assets/hero-img.png">
   
   <style>
+    :root {
+        --background: #ffffff ;
+        --primary-color: #3569b9 ;
+        --card: #ffffff ;
+    }
+  @media (prefers-color-scheme: dark) {
+   :root {
+      
+    }
+   }
+
+/******************************************************/
     * {
       margin: 0 ;
       padding: 0 ;
@@ -21,7 +33,7 @@
       user-select: none ;
     }
     body {
-      background: #fff;
+      background: var(--background) ;
       font-family: 'Segoe UI', sans-serif;
     }
 /***********************************************/
@@ -38,7 +50,7 @@
       box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
       overflow: hidden;
       position: relative;
-      background: #3569b9;
+      background: var(--primary-color) ;
     }
     header .header-wrapper img {
       width: 100%;
@@ -58,14 +70,14 @@
       to { background-position: -200% 0; }
     }
     .form-label i {
-      background: #3569b9;
+      background: var(--primary-color) ;
       font-size: 26px;
       padding: 4px 6px;
       border-radius: 50%;
-      color: #fff;
+      color: #ffffff;
     }
     .search-box {
-      background: #fff;
+      background: var(--card) ;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
@@ -104,7 +116,7 @@
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      background: #fff;
+      background: var(--card) ;
       text-decoration: none;
       color: inherit;
       transition: transform 0.2s;
@@ -121,11 +133,11 @@
     }
     /********************************************/
     .navbar {
-      background: #3569b9 !important;
+      background: var(--primary-color) !important;
       color: #fff ;
     }
     .navbar-brand {
-      color: #fff !important;
+      color: #ffffff !important;
       font-weight: 600;
       font-size: 1.2rem;
     }
@@ -156,10 +168,10 @@
       max-width: 85%;
     }
     .offcanvas-header {
-      background: #3569b9;
+      background: var(--primary-color);
     }
     .offcanvas-title {
-      color: #fff;
+      color: #ffffff;
       font-weight: 600;
     }
     .btn-close-white {
