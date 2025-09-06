@@ -18,6 +18,10 @@
       background: #fff;
       font-family: 'Segoe UI', sans-serif;
     }
+
+    .card { border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .notfound { color: red; font-size: 14px; display: none; }
+    
     .container {
       max-width: 660px;
     }
@@ -252,23 +256,24 @@
 <main class="container mb-4">
   <!-- Search Box -->
   <section class="search-box">
-    <form>
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-geo-alt me-2"></i>From</label>
-        <input type="text" class="form-control" placeholder="Enter departure location">
-      </div>
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-geo me-2"></i>To</label>
-        <input type="text" class="form-control" placeholder="Enter destination location">
-      </div>
-      <div class="mb-3">
-        <label class="form-label"><i class="bi bi-upc-scan me-2"></i>Search by Bus Code</label>
-        <input type="text" class="form-control" placeholder="Enter bus code">
-      </div>
-      <div class="d-grid">
-        <button type="submit" class="search-btn">Search</button>
-      </div>
-    </form>
+  <form id="searchForm" class="card p-4 mx-auto" style="max-width:500px;">
+    <div class="mb-3">
+      <label class="form-label">From</label>
+      <input type="text" id="fromInput" class="form-control" placeholder="Enter starting point" list="stopsList">
+      <div id="fromNotFound" class="notfound">Not found, try another</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">To</label>
+      <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList">
+      <div id="toNotFound" class="notfound">Not found, try another</div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Search by Bus No</label>
+      <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus no (optional)">
+    </div>
+    <datalist id="stopsList"></datalist>
+    <button type="submit" class="btn btn-primary w-100">Search</button>
+  </form>
   </section>
 
   <!-- Best Travelers -->
@@ -332,6 +337,65 @@
     headerImg.style.display = "block";
   });
 </script>
+
+ <script>
+    let allStops = [];
+
+    // fetch bus stops from buses.json
+    fetch("my_data/buses.json")
+      .then(res => res.json())
+      .then(data => {
+        const buses = data.buses;
+        let stopsSet = new Set();
+        buses.forEach(bus => {
+          bus.stops.forEach(s => stopsSet.add(s.name));
+        });
+        allStops = Array.from(stopsSet);
+      });
+
+    function updateSuggestions(inputId, notFoundId) {
+      const input = document.getElementById(inputId);
+      const notFound = document.getElementById(notFoundId);
+      const datalist = document.getElementById("stopsList");
+
+      input.addEventListener("input", e => {
+        const val = e.target.value.trim().toLowerCase();
+
+        if (val.length < 2) {
+          datalist.innerHTML = "";
+          notFound.style.display = "none";
+          return;
+        }
+
+        const matches = allStops.filter(stop => stop.toLowerCase().includes(val));
+
+        if (matches.length === 0) {
+          notFound.style.display = "block";
+          datalist.innerHTML = "";
+        } else {
+          notFound.style.display = "none";
+          datalist.innerHTML = matches.map(stop => `<option value="${stop}">`).join("");
+        }
+      });
+    }
+
+    updateSuggestions("fromInput", "fromNotFound");
+    updateSuggestions("toInput", "toNotFound");
+
+    document.getElementById("searchForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const from = document.getElementById("fromInput").value.trim();
+      const to = document.getElementById("toInput").value.trim();
+      const busNo = document.getElementById("busNoInput").value.trim();
+
+      if (busNo) {
+        window.location.href = `my_data/bus.html?busNo=${encodeURIComponent(busNo)}`;
+      } else if (from && to) {
+        window.location.href = `my_data/results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+      }
+    });
+  </script>
+  
 </body>
 </html>
 
