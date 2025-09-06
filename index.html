@@ -18,10 +18,14 @@
         --background: #ffffff ;
         --primary-color: #3569b9 ;
         --card: #ffffff ;
+        --border: ffffff ;
     }
   @media (prefers-color-scheme: dark) {
    :root {
-      
+        --background: #0b1020 ;
+        --primary-color: #3569b9 ;
+        --card: #111527 ;
+        --border: #1b2136 ;
     }
    }
 
@@ -84,6 +88,7 @@
       margin-top: -35px;
       position: relative;
       z-index: 1;
+      border: 1px solid var(--border);
     }
     .search-btn {
       background: #3569b9;
@@ -113,6 +118,7 @@
     .traveler-card {
       flex: 0 0 180px;
       scroll-snap-align: start;
+      border: 1px solid var(--border);
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
