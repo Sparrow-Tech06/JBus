@@ -81,6 +81,8 @@
       from { background-position: 200% 0; }
       to { background-position: -200% 0; }
     }
+    /****************************************************/
+    .form-label { color: var(--text-color) ; } 
     .form-label i {
       background: var(--primary-color) ;
       font-size: 26px;
@@ -298,12 +300,12 @@
       <div id="fromNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
-      <label class="form-label"> <i class="bi bi-geo me-2"></i>To </label>
+      <label class="form-label"> <i class="bi bi-geo me-2"></i> To </label>
       <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList">
       <div id="toNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
-      <label class="form-label"> <i class="bi bi-upc-scan me-2"></i> Search by Bus No</label>
+      <label class="form-label"> <i class="bi bi-upc-scan me-2"></i> Search by Bus No </label>
       <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus no (optional)">
     </div>
     <datalist id="stopsList"></datalist>
