@@ -37,8 +37,7 @@
   h6 { color: var(--text-color) ; }
   p  { color: var(--text-color) ; 
   .small  { color: var(--text-color) } ; 
-
-/******************************************************/
+  
     * {
       margin: 0 ;
       padding: 0 ;
@@ -46,11 +45,11 @@
       user-select: none ;
     }
     body {
-      background: var(--background) ;
+      background: #fff;
       font-family: 'Segoe UI', sans-serif;
     }
 /***********************************************/
-    .card { border: none ; background: var(--card) ; }
+    .card { border: none ; }
     .notfound { color: red; font-size: 14px; display: none; margin-top:3px; }
     
     .container {
@@ -63,7 +62,7 @@
       box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
       overflow: hidden;
       position: relative;
-      background: var(--primary-color) ;
+      background: #3569b9;
     }
     header .header-wrapper img {
       width: 100%;
@@ -82,24 +81,21 @@
       from { background-position: 200% 0; }
       to { background-position: -200% 0; }
     }
-    /****************************************************/
-    .form-label { color: var(--text-color) ; } 
     .form-label i {
-      background: var(--primary-color) ;
+      background: #3569b9;
       font-size: 26px;
       padding: 4px 6px;
       border-radius: 50%;
-      color: #ffffff;
+      color: #fff;
     }
     .search-box {
-      background: var(--card) ;
+      background: #fff;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: var(--shadow-1);
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
       margin-top: -35px;
       position: relative;
       z-index: 1;
-      border: 1px solid var(--border);
     }
     .search-btn {
       background: #3569b9;
@@ -129,11 +125,10 @@
     .traveler-card {
       flex: 0 0 180px;
       scroll-snap-align: start;
-      border: 1px solid var(--border);
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: var(--shadow-1);
-      background: var(--card) ;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background: #fff;
       text-decoration: none;
       color: inherit;
       transition: transform 0.2s;
@@ -150,11 +145,11 @@
     }
     /********************************************/
     .navbar {
-      background: var(--primary-color) !important;
+      background: #3569b9 !important;
       color: #fff ;
     }
     .navbar-brand {
-      color: #ffffff !important;
+      color: #fff !important;
       font-weight: 600;
       font-size: 1.2rem;
     }
@@ -185,10 +180,10 @@
       max-width: 85%;
     }
     .offcanvas-header {
-      background: var(--primary-color);
+      background: #3569b9;
     }
     .offcanvas-title {
-      color: #ffffff;
+      color: #fff;
       font-weight: 600;
     }
     .btn-close-white {
@@ -301,12 +296,12 @@
       <div id="fromNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
-      <label class="form-label"> <i class="bi bi-geo me-2"></i> To </label>
+      <label class="form-label"> <i class="bi bi-geo me-2"></i>To </label>
       <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList">
       <div id="toNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
-      <label class="form-label"> <i class="bi bi-upc-scan me-2"></i> Search by Bus No </label>
+      <label class="form-label"> <i class="bi bi-upc-scan me-2"></i> Search by Bus No</label>
       <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus no (optional)">
     </div>
     <datalist id="stopsList"></datalist>
@@ -320,7 +315,7 @@
     <div class="traveler-scroll">
       <a href="#" class="traveler-card">
         <div class="skeleton"></div>
-        <img src="https://picsum.photos/400/200?bus1" alt="Traveler 1" draggable="false" >
+        <img src="https://picsum.photos/400/200?bus1" alt="Traveler 1">
         <div class="p-3">
           <h6 class="fw-bold">LUXURIA</h6>
           <p class="small mb-1 text-muted">Premium comfort with WiFi & AC</p>
@@ -329,7 +324,7 @@
       </a>
       <a href="#" class="traveler-card">
         <div class="skeleton"></div>
-        <img src="https://picsum.photos/400/200?bus2" alt="Traveler 2" draggable="false" >
+        <img src="https://picsum.photos/400/200?bus2" alt="Traveler 2">
         <div class="p-3">
           <h6 class="fw-bold">KPN TRAVELS</h6>
           <p class="small mb-1 text-muted">Reliable service & punctual timing</p>
@@ -338,7 +333,7 @@
       </a>
       <a href="#" class="traveler-card">
         <div class="skeleton"></div>
-        <img src="https://picsum.photos/400/200?bus3" alt="Traveler 3" draggable="false" >
+        <img src="https://picsum.photos/400/200?bus3" alt="Traveler 3">
         <div class="p-3">
           <h6 class="fw-bold">MILANO TRAVELS</h6>
           <p class="small mb-1 text-muted">Luxury coaches with sleeper seats</p>
