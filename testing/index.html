@@ -15,24 +15,20 @@
 
   <h2 class="text-center mb-4">Search Bus</h2>
   <form id="searchForm" class="card p-4 mx-auto" style="max-width:500px;">
-    <!-- From -->
     <div class="mb-3">
       <label class="form-label">From</label>
       <input type="text" id="fromInput" class="form-control" placeholder="Enter starting point" list="stopsList">
       <div id="fromNotFound" class="notfound">Not found, try another</div>
     </div>
-    <!-- To -->
     <div class="mb-3">
       <label class="form-label">To</label>
       <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList">
       <div id="toNotFound" class="notfound">Not found, try another</div>
     </div>
-    <!-- Bus No -->
     <div class="mb-3">
-      <label class="form-label">Bus No</label>
-      <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus number (e.g. JB101)">
+      <label class="form-label">Search by Bus No</label>
+      <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus no (optional)">
     </div>
-
     <datalist id="stopsList"></datalist>
     <button type="submit" class="btn btn-primary w-100">Search</button>
   </form>
@@ -59,12 +55,15 @@
 
       input.addEventListener("input", e => {
         const val = e.target.value.trim().toLowerCase();
+
         if (val.length < 2) {
           datalist.innerHTML = "";
           notFound.style.display = "none";
           return;
         }
+
         const matches = allStops.filter(stop => stop.toLowerCase().includes(val));
+
         if (matches.length === 0) {
           notFound.style.display = "block";
           datalist.innerHTML = "";
@@ -78,7 +77,6 @@
     updateSuggestions("fromInput", "fromNotFound");
     updateSuggestions("toInput", "toNotFound");
 
-    // on submit
     document.getElementById("searchForm").addEventListener("submit", e => {
       e.preventDefault();
       const from = document.getElementById("fromInput").value.trim();
@@ -86,15 +84,11 @@
       const busNo = document.getElementById("busNoInput").value.trim();
 
       if (busNo) {
-        // priority to Bus No
-        window.location.href = `busno.html?busNo=${encodeURIComponent(busNo)}`;
+        window.location.href = `bus.html?busNo=${encodeURIComponent(busNo)}`;
       } else if (from && to) {
         window.location.href = `results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
-      } else {
-        alert("Please enter From & To or Bus No.");
       }
     });
   </script>
 </body>
 </html>
-
