@@ -1,48 +1,43 @@
 {
   "buses": [
     {
-      "busName": "Luxuria Travels",
-      "busCode": "LX101",
+      "no": "B101",
+      "name": "Jhargram Express",
       "from": "Jhargram",
       "to": "Kolkata",
-      "image": "https://picsum.photos/seed/luxuria/600/300",
       "stops": [
         { "name": "Jhargram", "time": "06:00 AM" },
-        { "name": "Kharagpur", "time": "07:00 AM" },
-        { "name": "Midnapore", "time": "07:45 AM" },
-        { "name": "Kolaghat", "time": "09:15 AM" },
-        { "name": "Howrah", "time": "10:30 AM" },
-        { "name": "Kolkata", "time": "10:45 AM" }
-      ]
+        { "name": "Midnapore", "time": "07:15 AM" },
+        { "name": "Kolaghat", "time": "08:30 AM" },
+        { "name": "Kolkata", "time": "10:00 AM" }
+      ],
+      "image": "https://picsum.photos/seed/bus1/400/200"
     },
     {
-      "busName": "KPN Travels",
-      "busCode": "KPN202",
-      "from": "Jhargram",
-      "to": "Digha",
-      "image": "https://picsum.photos/seed/kpn/600/300",
+      "no": "B102",
+      "name": "Kolkata Deluxe",
+      "from": "Kolkata",
+      "to": "Jhargram",
       "stops": [
-        { "name": "Jhargram", "time": "05:30 AM" },
-        { "name": "Kharagpur", "time": "06:15 AM" },
-        { "name": "Belda", "time": "07:10 AM" },
-        { "name": "Contai", "time": "08:45 AM" },
-        { "name": "Digha", "time": "09:30 AM" }
-      ]
+        { "name": "Kolkata", "time": "02:00 PM" },
+        { "name": "Kolaghat", "time": "03:15 PM" },
+        { "name": "Midnapore", "time": "04:30 PM" },
+        { "name": "Jhargram", "time": "06:00 PM" }
+      ],
+      "image": "https://picsum.photos/seed/bus2/400/200"
     },
     {
-      "busName": "Milano Travels",
-      "busCode": "ML303",
-      "from": "Jhargram",
-      "to": "Asansol",
-      "image": "https://picsum.photos/seed/milano/600/300",
+      "no": "B103",
+      "name": "Midnapore Local",
+      "from": "Midnapore",
+      "to": "Kolkata",
       "stops": [
-        { "name": "Jhargram", "time": "04:45 AM" },
-        { "name": "Midnapore", "time": "05:30 AM" },
-        { "name": "Bishnupur", "time": "07:00 AM" },
-        { "name": "Bankura", "time": "08:00 AM" },
-        { "name": "Durgapur", "time": "09:45 AM" },
-        { "name": "Asansol", "time": "10:30 AM" }
-      ]
+        { "name": "Midnapore", "time": "09:00 AM" },
+        { "name": "Kolaghat", "time": "10:15 AM" },
+        { "name": "Howrah", "time": "11:30 AM" },
+        { "name": "Kolkata", "time": "12:00 PM" }
+      ],
+      "image": "https://picsum.photos/seed/bus3/400/200"
     }
   ]
 }
