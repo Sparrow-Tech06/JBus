@@ -160,6 +160,9 @@
               <ul class="list-group">
                 ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("")}
               </ul>
+              <button type="button" class="btn-close custom-close-btn" data-bs-dismiss="modal">
+                  close
+              </button>
             `;
 
             const routeModal = new bootstrap.Modal(document.getElementById("routeModal"));
