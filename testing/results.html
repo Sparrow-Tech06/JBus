@@ -43,6 +43,11 @@
       background: #008080;
       color: #ffffff ;
     }
+    .road {
+      text-align: center ;
+      color: #fff ;
+      background: #008080 ;
+    }
     ul strong {
        background-color: rgba(0, 128, 128, 0.5);
        color: white;
@@ -54,7 +59,7 @@
        font-weight: 400;
        font-size: 15px ;
     }
-
+   ul i { color: #008080; }
     
   </style>
 </head>
@@ -118,11 +123,11 @@
             const index = e.target.dataset.idx;
             const bus = buses[index];
 
-            const routeList = bus.stops.map(s => `<li><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("");
+            const routeList = bus.stops.map(s => `<li><strong>${s.time}</strong> - ${s.name}</li>`).join("");
 
             document.getElementById("routeModalLabel").innerText = `${bus.name} (${bus.no})`;
             document.getElementById("routeContent").innerHTML = `
-              <p><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
+              <p class="road"><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
               <ul class="list-group">
                 ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("")}
               </ul>
