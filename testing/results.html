@@ -124,7 +124,7 @@
             document.getElementById("routeContent").innerHTML = `
               <p><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
               <ul class="list-group">
-                ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - ${s.name}</li>`).join("")}
+                ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("")}
               </ul>
             `;
 
