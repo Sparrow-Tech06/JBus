@@ -6,130 +6,39 @@
   <title>Bus Results</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { 
-      background: #f8f9fa; 
-      padding-bottom: 20px;
-    }
-    .header {
-      background: linear-gradient(135deg, #008080 0%, #004d4d 100%);
-      color: white;
-      padding: 20px 0;
-      margin-bottom: 25px;
-      border-radius: 0 0 15px 15px;
-    }
+    body { background: #ffffff; }
     .bus-card { 
       border-radius: 12px; 
       margin-bottom: 20px; 
-      padding: 20px;
-      border: 1px solid #e0e0e0;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .bus-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 15px;
+      border: 1px solid #008080;
     }
     .bus-image {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       object-fit: cover;
       border-radius: 10px;
-      border: 2px solid #008080;
     }
-    .route-btn {
-      background-color: #008080;
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 25px;
-      font-weight: 500;
-      transition: background-color 0.3s;
-    }
-    .route-btn:hover {
-      background-color: #006666;
-    }
-    .modal-content {
-      border-radius: 15px;
-      overflow: hidden;
-    }
-    .modal-header {
-      background: linear-gradient(135deg, #008080 0%, #004d4d 100%);
-      color: white;
-    }
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: white;
-      opacity: 0.8;
-    }
-    .close-btn:hover {
-      opacity: 1;
-    }
-    .stop-item {
-      border-left: 3px solid #008080;
-      padding-left: 15px;
-      margin-bottom: 15px;
-      transition: background-color 0.2s;
-    }
-    .stop-item:hover {
-      background-color: #f0f8f8;
-    }
-    .time-badge {
-      background-color: #008080;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 15px;
-      font-size: 0.85rem;
-    }
-    .route-line {
-      width: 2px;
-      background-color: #008080;
-      position: absolute;
-      left: 7px;
-      top: 0;
-      bottom: 0;
-      z-index: 1;
-    }
-    .search-info {
-      background-color: #e8f4f4;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 20px;
+    .modal-fullscreen .modal-content {
+      border-radius: 0;
     }
   </style>
 </head>
-<body>
+<body class="container py-4">
 
-  <div class="header text-center">
-    <div class="container">
-      <h2 class="mb-1">Available Buses</h2>
-      <p class="mb-0" id="search-info">From Location to Destination</p>
-    </div>
-  </div>
+  <h3 class="mb-4 text-center">Available Buses</h3>
+  <div id="results"></div>
 
-  <div class="container">
-    <div id="results"></div>
-  </div>
-
-  <!-- Full Screen Modal for Route Details -->
-  <div class="modal fade" id="routeModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+  <!-- Modal Template -->
+  <div class="modal fade" id="routeModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalBusName">Bus Name & Number</h5>
-          <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">×</button>
+          <h5 class="modal-title" id="routeModalLabel">Route & Timings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body">
-          <h6 class="text-muted mb-4" id="modalRoute">Full Route Information</h6>
-          <div class="position-relative ps-3">
-            <div class="route-line"></div>
-            <div id="modalStops"></div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <div class="modal-body" id="routeContent">
+          <!-- Dynamic content will be injected here -->
         </div>
       </div>
     </div>
@@ -139,16 +48,12 @@
     const params = new URLSearchParams(window.location.search);
     const from = params.get("from");
     const to = params.get("to");
-    
-    // Update search info text
-    document.getElementById('search-info').textContent = `${from} → ${to}`;
 
     fetch("buses.json")
       .then(res => res.json())
       .then(data => {
         let buses = data.buses;
 
-        // filter buses that include both stops in correct order
         buses = buses.filter(bus => {
           const stopNames = bus.stops.map(s => s.name.toLowerCase());
           const fromIndex = stopNames.indexOf(from.toLowerCase());
@@ -158,80 +63,41 @@
 
         const resultsDiv = document.getElementById("results");
         if (buses.length === 0) {
-          resultsDiv.innerHTML = `
-            <div class="alert alert-info text-center">
-              <h5>No buses found for ${from} → ${to}</h5>
-              <p class="mb-0">Please try a different route</p>
-            </div>`;
+          resultsDiv.innerHTML = `<p class="text-danger">No buses found for ${from} → ${to}</p>`;
           return;
         }
 
-        resultsDiv.innerHTML = buses.map((bus, idx) => {
-          // Find the specific stop times for from and to locations
-          const stopNames = bus.stops.map(s => s.name.toLowerCase());
-          const fromIndex = stopNames.indexOf(from.toLowerCase());
-          const toIndex = stopNames.indexOf(to.toLowerCase());
-          const departureTime = bus.stops[fromIndex].time;
-          const arrivalTime = bus.stops[toIndex].time;
-          
-          return `
-          <div class="bus-card">
-            <div class="d-flex align-items-start gap-3">
-              <img src="${bus.image}" class="bus-image" alt="Bus Image" draggable="false">
-              
-              <div class="flex-grow-1">
-                <h5 class="mb-2">${bus.name} (${bus.no})</h5>
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <div>
-                    <span class="fw-bold">${departureTime}</span> - 
-                    <span class="fw-bold">${arrivalTime}</span>
-                  </div>
-                  <span class="badge bg-success">Direct</span>
-                </div>
-                <p class="mb-3"><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
-
-                <button type="button" class="route-btn" data-bus-index="${idx}" data-bs-toggle="modal" data-bs-target="#routeModal">
-                  View Route & Timings
-                </button>
-              </div>
+        resultsDiv.innerHTML = buses.map((bus, idx) => `
+          <div class="bus-card d-flex align-items-start gap-3">
+            <img src="${bus.image}" class="bus-image" alt="Bus Image" draggable="false">
+            <div class="flex-grow-1">
+              <h5 class="mb-2">${bus.name} (${bus.no})</h5>
+              <p class="mb-2"><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
+              <button class="btn btn-outline-teal btn-sm view-route" data-idx="${idx}">View Route & Timings</button>
             </div>
           </div>
-        `}).join("");
-        
-        // Add event listeners to the buttons
-        document.querySelectorAll('.route-btn').forEach(button => {
-          button.addEventListener('click', function() {
-            const busIndex = this.getAttribute('data-bus-index');
-            const bus = buses[busIndex];
-            
-            // Update modal content
-            document.getElementById('modalBusName').textContent = `${bus.name} (${bus.no})`;
-            document.getElementById('modalRoute').textContent = `${bus.from} to ${bus.to}`;
-            
-            // Generate stops list
-            const stopsContainer = document.getElementById('modalStops');
-            stopsContainer.innerHTML = bus.stops.map(stop => `
-              <div class="stop-item position-relative">
-                <div class="position-absolute" style="left: -20px; top: 3px; z-index: 2;">
-                  <div style="width: 12px; height: 12px; border-radius: 50%; background-color: #008080;"></div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <h6 class="mb-1">${stop.name}</h6>
-                  <span class="time-badge">${stop.time}</span>
-                </div>
-                ${stop.landmark ? `<small class="text-muted">Near: ${stop.landmark}</small>` : ''}
-              </div>
-            `).join('');
+        `).join("");
+
+        // Attach event listeners to buttons
+        document.querySelectorAll(".view-route").forEach(btn => {
+          btn.addEventListener("click", e => {
+            const index = e.target.dataset.idx;
+            const bus = buses[index];
+
+            const routeList = bus.stops.map(s => `<li><strong>${s.time}</strong> - ${s.name}</li>`).join("");
+
+            document.getElementById("routeModalLabel").innerText = `${bus.name} (${bus.no}) - Route & Timings`;
+            document.getElementById("routeContent").innerHTML = `
+              <p><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
+              <ul class="list-group">
+                ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - ${s.name}</li>`).join("")}
+              </ul>
+            `;
+
+            const routeModal = new bootstrap.Modal(document.getElementById("routeModal"));
+            routeModal.show();
           });
         });
-      })
-      .catch(error => {
-        document.getElementById('results').innerHTML = `
-          <div class="alert alert-danger text-center">
-            <h5>Error loading bus information</h5>
-            <p class="mb-0">Please try again later</p>
-          </div>`;
-        console.error('Error:', error);
       });
   </script>
 
