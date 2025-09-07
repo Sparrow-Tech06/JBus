@@ -71,9 +71,17 @@
        font-size: 15px ;
     }
    ul i { color: #3569b9 ; }
-   .custom-close {
-       filter: invert(70%) sepia(20%) saturate(600%) hue-rotate(150deg) brightness(110%) contrast(95%);
-  }
+   .custom-close-btn {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: #008080; /* custom color */
+      transition: 0.3s;
+    }
+  .custom-close-btn:hover {
+      color: #ff6b6b; /* hover pe red tone */
+      transform: scale(1.1);
+   }
     
   </style>
 </head>
@@ -88,7 +96,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="routeModalLabel"> </h5>
-          <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn custom-close-btn" data-bs-dismiss="modal">
+             <i class="bi bi-x-circle-fill"></i>
+         </button>
         </div>
         <div class="modal-body" id="routeContent">
           <!-- Dynamic content will be injected here -->
