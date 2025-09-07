@@ -22,6 +22,7 @@
     .modal-fullscreen .modal-content {
       border-radius: 0;
     }
+    .modal-title { font-size: 16px ; }
     .view-route {
        background-color: #008080;
        color: #fff;
@@ -39,7 +40,7 @@
       color: #ffffff ;
     }
     ul strong {
-       background-color: #008080;
+       background-color: rgba(0, 128, 128, 0.5);
        color: white;
        padding: 0.3rem 0.60rem;
        border-radius: 6px;
@@ -115,7 +116,7 @@
 
             const routeList = bus.stops.map(s => `<li><strong>${s.time}</strong> - ${s.name}</li>`).join("");
 
-            document.getElementById("routeModalLabel").innerText = `${bus.name} (${bus.no}) - Route & Timings`;
+            document.getElementById("routeModalLabel").innerText = `${bus.name} (${bus.no})`;
             document.getElementById("routeContent").innerHTML = `
               <p><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
               <ul class="list-group">
