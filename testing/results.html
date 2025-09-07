@@ -45,7 +45,6 @@
     }
     .road {
       text-align: center ;
-      color: #fff ;
       background: transparent ;
     }
     .from {
@@ -53,13 +52,7 @@
       color: #fff;
       padding: 4px 8px;
       border-radius: 6px;
-   }
-
-   .arrow {
-      margin: 0 6px;
-      font-weight: bold;
-   }
-
+    }
   .to {
       background-color: #687EFF;  /* blue shade */
       color: #fff;
@@ -145,7 +138,7 @@
 
             document.getElementById("routeModalLabel").innerText = `${bus.name} (${bus.no})`;
             document.getElementById("routeContent").innerHTML = `
-              <p class="road"><strong class="from">${bus.from}</strong> → <strong clas="to">${bus.to}</strong></p>
+              <p class="road"><strong class="from">${bus.from}</strong> → <strong class="to">${bus.to}</strong></p>
               <ul class="list-group">
                 ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("")}
               </ul>
