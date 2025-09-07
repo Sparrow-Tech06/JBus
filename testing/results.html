@@ -87,6 +87,17 @@
       font-weight: bold ;
       transition: 0.3s;
     }
+   .text-close-btn {
+      background: #44444E ;
+      border: none;
+      font-size: 15px;
+      margin: 0 auto ;
+      min-width: 70px;
+      color: #ffffff ; /* custom color */
+      font-weight: bold ;
+      transition: 0.3s;
+      padding: 4px 8px ;
+    } 
 
   </style>
 </head>
@@ -160,7 +171,7 @@
               <ul class="list-group">
                 ${bus.stops.map(s => `<li class="list-group-item"><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("")}
               </ul>
-              <button type="button" class="btn-close custom-close-btn" data-bs-dismiss="modal">
+              <button type="button" class="btn-close text-close-btn" data-bs-dismiss="modal">
                   close
               </button>
             `;
