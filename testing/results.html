@@ -22,6 +22,13 @@
     .modal-fullscreen .modal-content {
       border-radius: 0;
     }
+    .view-route {
+       background-color: #008080;
+       color: white;
+       padding: 0.30rem 0.65rem;
+       border-radius: 8px;
+     }
+    
   </style>
 </head>
 <body class="container py-4">
@@ -63,7 +70,7 @@
 
         const resultsDiv = document.getElementById("results");
         if (buses.length === 0) {
-          resultsDiv.innerHTML = `<p class="text-danger">No buses found for ${from} → ${to}</p>`;
+          resultsDiv.innerHTML = `<p class="text-danger"> No buses found for ${from} → ${to}</p>`;
           return;
         }
 
@@ -73,7 +80,7 @@
             <div class="flex-grow-1">
               <h5 class="mb-2">${bus.name} (${bus.no})</h5>
               <p class="mb-2"><strong>${bus.from}</strong> → <strong>${bus.to}</strong></p>
-              <button class="btn btn-outline-teal btn-sm view-route" data-idx="${idx}">View Route & Timings</button>
+              <button class="btn btn-sm view-route" data-idx="${idx}">View Route & Timings</button>
             </div>
           </div>
         `).join("");
