@@ -118,7 +118,7 @@
             const index = e.target.dataset.idx;
             const bus = buses[index];
 
-            const routeList = bus.stops.map(s => `<li><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"> ${s.name}</li>`).join("");
+            const routeList = bus.stops.map(s => `<li><strong>${s.time}</strong> - <i class="bi bi-geo-alt-fill"></i> ${s.name}</li>`).join("");
 
             document.getElementById("routeModalLabel").innerText = `${bus.name} (${bus.no})`;
             document.getElementById("routeContent").innerHTML = `
