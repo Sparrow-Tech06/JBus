@@ -71,6 +71,9 @@
        font-size: 15px ;
     }
    ul i { color: #008080; }
+   .custom-close {
+       filter: invert(54%) sepia(12%) saturate(600%) hue-rotate(130deg) brightness(95%) contrast(90%);
+   }
     
   </style>
 </head>
@@ -85,7 +88,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="routeModalLabel"> </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body" id="routeContent">
           <!-- Dynamic content will be injected here -->
