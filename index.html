@@ -17,6 +17,16 @@
   <link rel="preload" as="image" href="Assets/hero-img.png">
   
   <style>
+    
+   :root {  
+      --primary-color: #274D8C;  
+      --secondary-color: #2D6B8D;  
+      --accent-color: #FFA500;  
+      --bg-light: #F8F9FA;  
+      --text-dark: #343A40;  
+      --text-muted: #6C757D;  
+    }  
+ /**********************************************/
     * {
       margin: 0 ;
       padding: 0 ;
@@ -168,13 +178,18 @@
     .btn-close-white {
       filter: invert(1);
     }
-    .nav-link {
-      color: #333;
-    }
-    .nav-link:hover {
-      background: #f8f9fa;
-      color: #3569b9;
-    }
+    .nav-link {  
+      color: var(--text-dark);  
+      transition: all 0.2s ease-in-out;  
+      border-left: 4px solid transparent;  
+      padding-left: 1.5rem;  
+    }  
+      
+    .nav-link:hover {  
+      background: rgba(0, 0, 0, 0.04);  
+      border-left: 4px solid var(--secondary-color);  
+      color: var(--primary-color);  
+    }  
 
   /****************************************/
     .rate-us h2 {
