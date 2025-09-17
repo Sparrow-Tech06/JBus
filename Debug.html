@@ -42,7 +42,7 @@
     
     .card {
       border: none;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+   /*   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);  */
       border-radius: 1rem;
     }
     
@@ -135,9 +135,9 @@
     /* Search Box */
     .search-box {
       background: #fff;
-      padding: 24px;
+      padding: 24px 20px;
       border-radius: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);  
       margin-top: -60px;
       position: relative;
       z-index: 10;
@@ -186,43 +186,9 @@
       transform: scale(0.98);
     }
     
-    /* Horizontal Scroll Cards */
-    .traveler-scroll {
-      display: flex;
-      gap: 1.25rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 15px;
-    }
     
-    .traveler-scroll::-webkit-scrollbar {
-      display: none;
-    }
     
-    .traveler-card {
-      flex: 0 0 190px;
-      scroll-snap-align: start;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      background: #fff;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .traveler-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    
-    .traveler-card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      display: none;
-    }
-    
+
     .skeleton {
       width: 100%;
       height: 100%;
@@ -236,55 +202,8 @@
       to { background-position: -200% 0; }
     }
     
-    .traveler-card .p-3 {
-      padding: 1rem !important;
-    }
-    
-    .traveler-card h6 {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    
-    .traveler-card .small {
-      font-size: 0.8rem;
-    }
-    
-    /* Rate Us Section */
-    .rate-us h2 {
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-    
-    .rate-us .card {
-      background: #fff;
-      border: none;
-      border-radius: 1rem;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-    }
-    
-    .rate-us-text {
-      font-size: 0.9rem;
-      text-align: left;
-    }
-    
-    .btn-rate {
-      display: inline-block;
-      background-color: var(--primary-color);
-      color: #fff;
-      font-weight: 600;
-      padding: 12px 0;
-      border-radius: 50px;
-      text-decoration: none;
-      text-align: center;
-      width: 100%;
-      transition: background 0.2s ease-in-out;
-    }
-    
-    .btn-rate:hover {
-      background-color: var(--secondary-color);
-      color: #fff;
-    }
-    
+
+
   </style>
 </head>
 <body>
