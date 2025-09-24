@@ -90,5 +90,15 @@
       }
     });
   </script>
+
+  <script>
+    // Disable paste on all inputs & textareas
+    document.querySelectorAll("input, textarea").forEach(el => {
+      el.addEventListener("paste", function(e) {
+        e.preventDefault();
+       });
+    });
+  </script>
+  
 </body>
 </html>
