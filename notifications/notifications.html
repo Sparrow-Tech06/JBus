@@ -19,10 +19,15 @@
       box-sizing: border-box ;
       user-select: none ;
     }
-    body { background: #ffffff; font-family: "Segoe UI", Arial, sans-serif; }
+    body { background: var(--body-bg); font-family: "Segoe UI", Arial, sans-serif; }
 /*************************************************/
     :root {
-      
+       --body-bg: #ffffff ;
+       --text-color: #ffffff ;
+       --date-titie: #6c757d ;
+    }
+ @media (prefers-color-scheme: dark) {
+  
     }
 
     /************************************************/
@@ -74,7 +79,7 @@
       font-size: 13px;
       font-weight: 600;
       text-transform: uppercase;
-      color: #6c757d;
+      color: var(--date-titie);
       margin: 18px 0 10px;
     }
 
