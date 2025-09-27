@@ -25,9 +25,13 @@
        --body-bg: #ffffff ;
        --text-color: #ffffff ;
        --date-titie: #6c757d ;
+       --card: #ffffff ;
     }
  @media (prefers-color-scheme: dark) {
-  
+       --body-bg: #121212 ;
+       --text-color: #ffffff ;
+       --date-titie: #6c757d ;
+       --card: #1e1e1e ;
     }
 
     /************************************************/
@@ -62,6 +66,7 @@
       transition: all 0.25s ease;
       border: none;
       border-radius: 10px;
+      background: var(--card);
     }
     .notification-card:hover {
       transform: scale(0.98) ;
