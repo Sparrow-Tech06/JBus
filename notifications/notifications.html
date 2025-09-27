@@ -26,6 +26,8 @@
        --text-color: #ffffff ;
        --date-titie: #6c757d ;
        --card: #ffffff ;
+       --popup: #ffffff ;
+       --popup-text: #444 ;
     }
  @media (prefers-color-scheme: dark) {
     :root {
@@ -33,6 +35,8 @@
        --text-color: #ffffff ;
        --date-titie: #6c757d ;
        --card: #1e1e1e ;
+       --popup: #ffffff ;
+       --popup-text: #fff ;
       }
    }
 
@@ -69,10 +73,6 @@
       border: none;
       border-radius: 10px;
       background: var(--card);
-    }
-    .notification-card:hover {
-      transform: scale(0.98) ;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .notification-logo {
       width: 48px;
@@ -111,7 +111,7 @@
       z-index: 999;
     }
     .popup-content {
-      background: #fff;
+      background: var(--popup) ;
       padding: 25px;
       border-radius: 14px;
       width: 90%; max-width: 380px;
@@ -130,7 +130,7 @@
     }
     .popup-content p {
       font-size: 14px;
-      color: #444;
+      color: var(--popup-text);
     }
     
   </style>
