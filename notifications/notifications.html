@@ -23,7 +23,7 @@
 /*************************************************/
     :root {
        --body-bg: #ffffff ;
-       --text-color: #ffffff ;
+       --text-color: #444 ;
        --date-titie: #6c757d ;
        --card: #ffffff ;
        --popup: #ffffff ;
@@ -72,6 +72,7 @@
       transition: all 0.25s ease;
       border: none;
       border-radius: 10px;
+      background: var(--card);
     }
     .notification-card:hover {
       transform: scale(0.98) ;
@@ -114,7 +115,7 @@
       z-index: 999;
     }
     .popup-content {
-      background: #fff;
+      background: var(--card);
       padding: 25px;
       border-radius: 14px;
       width: 90%; max-width: 380px;
@@ -133,7 +134,7 @@
     }
     .popup-content p {
       font-size: 14px;
-      color: #444;
+      color: var(--text-color);
     }
   </style>
 </head>
