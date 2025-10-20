@@ -315,17 +315,17 @@
   <form id="searchForm" class="card mx-auto">
     <div class="mb-3">
       <label class="form-label"> <i class="bi bi-geo-alt me-2"></i> From </label>
-      <input type="text" id="fromInput" class="form-control" placeholder="Enter departure location" list="stopsList">
+      <input type="text" id="fromInput" class="form-control" onpaste="return false" oncopy="return false" oncut="return false" placeholder="Enter departure location" list="stopsList">
       <div id="fromNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
       <label class="form-label"> <i class="bi bi-geo me-2"></i>To </label>
-      <input type="text" id="toInput" class="form-control" placeholder="Enter destination" list="stopsList">
+      <input type="text" id="toInput" class="form-control" onpaste="return false" oncopy="return false" oncut="return false" placeholder="Enter destination" list="stopsList">
       <div id="toNotFound" class="notfound">Not found, try another</div>
     </div>
     <div class="mb-3">
       <label class="form-label"> <i class="bi bi-upc-scan me-2"></i> Search by Bus No</label>
-      <input type="text" id="busNoInput" class="form-control" placeholder="Enter bus no (optional)">
+      <input type="text" id="busNoInput" class="form-control" onpaste="return false" oncopy="return false" oncut="return false" placeholder="Enter bus no (optional)">
     </div>
     <datalist id="stopsList"></datalist>
     <button type="submit" class="btn search-btn w-100"> Search </button>
