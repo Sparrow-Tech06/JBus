@@ -26,12 +26,14 @@
       --text-dark: #343A40;  
       --text-muted: #6C757D;
       --search-box: #ffffff ;
+     --divider: none ;
     } 
     @media (prefers-color-scheme: dark) {
             :root {
                --text-dark: #ffffff ;  
                --bg-light: #0f1724 ;
                --search-box: #111827 ;
+               --divider: rgba(255, 255, 255, 0.06);
              }
           }
  /**********************************************/
@@ -92,6 +94,7 @@
     .search-box {
       background: var(--search-box);
       padding: 20px;
+      border: 1px solid var(--divider);
       border-radius: 15px;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
       margin-top: -35px;
@@ -126,6 +129,7 @@
     .traveler-card {
       flex: 0 0 180px;
       scroll-snap-align: start;
+      border: 1px solid var(--divider);
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
