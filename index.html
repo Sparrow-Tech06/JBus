@@ -22,10 +22,17 @@
       --primary-color: #274D8C;  
       --secondary-color: #2D6B8D;  
       --accent-color: #FFA500;  
-      --bg-light: #F8F9FA;  
+      --bg-light: #FFFFFF ;  
       --text-dark: #343A40;  
-      --text-muted: #6C757D;  
-    }  
+      --text-muted: #6C757D;
+      --search-box: #ffffff ;
+    } 
+    @media (prefers-color-scheme: dark) {
+            :root {
+               --bg-light: #0f1724 ;
+               --search-box: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)) ;
+            }
+          }
  /**********************************************/
     * {
       margin: 0 ;
@@ -34,7 +41,7 @@
       user-select: none ;
     }
     body {
-      background: #fff;
+      background: var(--bg-light) ;
       font-family: 'Inter', sans-serif;
     }
 /***********************************************/
@@ -82,7 +89,7 @@
       color: #fff;
     }
     .search-box {
-      background: #fff;
+      background: var(--search-box);
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
