@@ -7,136 +7,108 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
 
 <style>
 body{
   background:#f4f6f9;
-  min-height:100vh;
 }
 .search-card{
   max-width:520px;
   border-radius:16px;
   background:#fff;
-  border:1px solid #e9ecef;
+  border:1px solid #e6e6e6;
 }
 .input-box{
   position:relative;
 }
-.options{
+.option-list{
   position:absolute;
+  top:100%;
   width:100%;
-  max-height:160px;
-  overflow:auto;
   background:#fff;
   border:1px solid #dee2e6;
   border-radius:12px;
   margin-top:4px;
-  z-index:10;
+  max-height:180px;
+  overflow-y:auto;
+  z-index:100;
 }
-.options div{
+.option-list div{
   padding:8px 12px;
   cursor:pointer;
+  font-size:14px;
 }
-.options div:hover{
+.option-list div:hover{
   background:#f1f3f5;
 }
 .notfound{
   font-size:13px;
   color:#dc3545;
-}
-#phaser-bg{
-  position:fixed;
-  inset:0;
-  z-index:-1;
+  margin-top:4px;
 }
 </style>
 </head>
 
 <body>
-<div id="phaser-bg"></div>
-
 <div id="app" class="container py-5">
-  <h3 class="text-center fw-bold mb-4">Search Bus</h3>
 
-  <div class="search-card p-4 mx-auto">
+<h3 class="text-center fw-bold mb-4">Search Bus</h3>
 
-    <!-- FROM -->
-    <div class="mb-3 input-box">
-      <label class="form-label">From</label>
-      <input class="form-control"
-        v-model="from"
-        @input="filterStops('from')"
-        placeholder="Starting point">
-      <div class="options" v-if="showFromOptions">
-        <div v-for="s in filteredStops" @click="selectStop('from',s)">
-          {{s}}
-        </div>
+<div class="search-card p-4 mx-auto">
+
+  <!-- FROM -->
+  <div class="mb-3 input-box">
+    <label class="form-label">From</label>
+    <input class="form-control"
+      v-model="from"
+      @input="searchStops('from')"
+      placeholder="Enter starting point">
+
+    <div class="option-list" v-if="showFromList">
+      <div v-for="stop in filteredStops" @click="selectStop('from',stop)">
+        {{ stop }}
       </div>
-      <div class="notfound" v-if="fromNotFound">Not found, try another</div>
     </div>
 
-    <!-- TO -->
-    <div class="mb-3 input-box">
-      <label class="form-label">To</label>
-      <input class="form-control"
-        v-model="to"
-        @input="filterStops('to')"
-        placeholder="Destination">
-      <div class="options" v-if="showToOptions">
-        <div v-for="s in filteredStops" @click="selectStop('to',s)">
-          {{s}}
-        </div>
-      </div>
-      <div class="notfound" v-if="toNotFound">Not found, try another</div>
+    <div class="notfound" v-if="fromNotFound">
+      Not found, try another
     </div>
-
-    <!-- BUS NO -->
-    <div class="mb-4">
-      <label class="form-label">Bus No (optional)</label>
-      <input class="form-control" v-model="busNo" placeholder="WB-XX-1234">
-    </div>
-
-    <button class="btn btn-primary w-100" @click="search">
-      <i class="bi bi-search"></i> Search
-    </button>
   </div>
+
+  <!-- TO -->
+  <div class="mb-3 input-box">
+    <label class="form-label">To</label>
+    <input class="form-control"
+      v-model="to"
+      @input="searchStops('to')"
+      placeholder="Enter destination">
+
+    <div class="option-list" v-if="showToList">
+      <div v-for="stop in filteredStops" @click="selectStop('to',stop)">
+        {{ stop }}
+      </div>
+    </div>
+
+    <div class="notfound" v-if="toNotFound">
+      Not found, try another
+    </div>
+  </div>
+
+  <!-- BUS NO -->
+  <div class="mb-4">
+    <label class="form-label">Bus No (optional)</label>
+    <input class="form-control" v-model="busNo" placeholder="WB-XX-1234">
+  </div>
+
+  <button class="btn btn-primary w-100" @click="searchBus">
+    <i class="bi bi-search"></i> Search
+  </button>
+
+</div>
 </div>
 
 <script>
-/* ---------- PHASER BACKGROUND ---------- */
-new Phaser.Game({
-  type: Phaser.AUTO,
-  parent: 'phaser-bg',
-  width: window.innerWidth,
-  height: window.innerHeight,
-  transparent:true,
-  scene:{
-    create(){
-      for(let i=0;i<40;i++){
-        let c=this.add.circle(
-          Phaser.Math.Between(0,window.innerWidth),
-          Phaser.Math.Between(0,window.innerHeight),
-          Phaser.Math.Between(2,5),
-          0x0d6efd,
-          0.15
-        );
-        this.tweens.add({
-          targets:c,
-          y:'-=60',
-          duration:4000,
-          yoyo:true,
-          repeat:-1,
-          delay:i*80
-        });
-      }
-    }
-  }
-});
-
-/* ---------- VUE APP ---------- */
 Vue.createApp({
   data(){
     return{
@@ -145,51 +117,62 @@ Vue.createApp({
       busNo:'',
       stops:[],
       filteredStops:[],
-      showFromOptions:false,
-      showToOptions:false,
+      showFromList:false,
+      showToList:false,
       fromNotFound:false,
       toNotFound:false
     }
   },
   mounted(){
     fetch('buses.json')
-      .then(r=>r.json())
-      .then(d=>{
+      .then(res=>res.json())
+      .then(data=>{
         let set=new Set();
-        d.buses.forEach(b=>b.stops.forEach(s=>set.add(s.name)));
+        data.buses.forEach(bus=>{
+          bus.stops.forEach(s=>set.add(s.name));
+        });
         this.stops=[...set];
       });
   },
   methods:{
-    filterStops(type){
-      const val=(type==='from'?this.from:this.to).toLowerCase();
-      if(val.length<2){
-        this.showFromOptions=this.showToOptions=false;
+    searchStops(type){
+      const value = (type==='from'?this.from:this.to).toLowerCase().trim();
+
+      if(value.length < 1){
+        this.showFromList = this.showToList = false;
+        this.fromNotFound = this.toNotFound = false;
         return;
       }
-      this.filteredStops=this.stops.filter(s=>s.toLowerCase().includes(val));
+
+      this.filteredStops = this.stops.filter(s =>
+        s.toLowerCase().includes(value)
+      );
+
       if(type==='from'){
-        this.showFromOptions=true;
-        this.fromNotFound=this.filteredStops.length===0;
+        this.showFromList = true;
+        this.fromNotFound = this.filteredStops.length === 0;
       }else{
-        this.showToOptions=true;
-        this.toNotFound=this.filteredStops.length===0;
+        this.showToList = true;
+        this.toNotFound = this.filteredStops.length === 0;
       }
     },
-    selectStop(type,val){
+
+    selectStop(type,stop){
       if(type==='from'){
-        this.from=val;
-        this.showFromOptions=false;
+        this.from = stop;
+        this.showFromList = false;
       }else{
-        this.to=val;
-        this.showToOptions=false;
+        this.to = stop;
+        this.showToList = false;
       }
     },
-    search(){
+
+    searchBus(){
       if(this.busNo){
-        location.href=`bus.html?busNo=${encodeURIComponent(this.busNo)}`;
-      }else if(this.from && this.to){
-        location.href=`results.html?from=${encodeURIComponent(this.from)}&to=${encodeURIComponent(this.to)}`;
+        location.href = `bus.html?busNo=${encodeURIComponent(this.busNo)}`;
+      }
+      else if(this.from && this.to){
+        location.href = `results.html?from=${encodeURIComponent(this.from)}&to=${encodeURIComponent(this.to)}`;
       }
     }
   }
