@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bus Detail</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container py-4">
+<div id="bus"></div>
+
+<script>
+const no=new URLSearchParams(location.search).get("no");
+
+fetch("buses.json")
+.then(r=>r.json())
+.then(d=>{
+  const b=d.buses.find(x=>x.no==no);
+  bus.innerHTML=`
+  <div class="card">
+    <img src="${b.image}" class="card-img-top">
+    <div class="card-body">
+      <h4>${b.name} (${b.no})</h4>
+      ${b.isCancelled?'<span class="text-danger">Not running today</span>':""}
+      <ul>
+        ${b.stops.map(s=>`<li>${s.name} – ${s.time}</li>`).join("")}
+      </ul>
+    </div>
+  </div>`;
+});
+</script>
+</body>
+</html>
