@@ -1,0 +1,46 @@
+{
+  "buses": [
+    {
+      "no": "B101",
+      "name": "Jhargram Express",
+      "from": "Jhargram",
+      "to": "Kolkata",
+      "isCancelled": false,
+      "stops": [
+        { "name": "Jhargram", "time": "06:00 AM" },
+        { "name": "Midnapore", "time": "07:15 AM" },
+        { "name": "Kolaghat", "time": "08:30 AM" },
+        { "name": "Kolkata", "time": "10:00 AM" }
+      ],
+      "image": "https://picsum.photos/seed/bus1/400/200"
+    },
+    {
+      "no": "B102",
+      "name": "Kolkata Deluxe",
+      "from": "Kolkata",
+      "to": "Jhargram",
+      "isCancelled": true,
+      "stops": [
+        { "name": "Kolkata", "time": "02:00 PM" },
+        { "name": "Kolaghat", "time": "03:15 PM" },
+        { "name": "Midnapore", "time": "04:30 PM" },
+        { "name": "Jhargram", "time": "06:00 PM" }
+      ],
+      "image": "https://picsum.photos/seed/bus2/400/200"
+    },
+    {
+      "no": "B103",
+      "name": "Midnapore Local",
+      "from": "Midnapore",
+      "to": "Kolkata",
+      "isCancelled": false,
+      "stops": [
+        { "name": "Midnapore", "time": "09:00 AM" },
+        { "name": "Kolaghat", "time": "10:15 AM" },
+        { "name": "Howrah", "time": "11:30 AM" },
+        { "name": "Kolkata", "time": "12:00 PM" }
+      ],
+      "image": "https://picsum.photos/seed/bus3/400/200"
+    }
+  ]
+}
