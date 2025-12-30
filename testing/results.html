@@ -127,7 +127,7 @@ fetch("buses.json")
     
           <h6 class="mb-1">${bus.name} (${bus.no})</h6>    
           <p class="mb-1">${bus.from} → ${bus.to}</p>    
-      </div>
+      
           <!-- ✅ ARRIVAL TIME AT FROM LOCATION -->    
           <div class="arrival-time">    
             <i class="bi bi-clock"></i>    
@@ -137,7 +137,7 @@ fetch("buses.json")
           <button class="btn btn-sm view-route" data-idx="${idx}">    
             View Route & Timings    
           </button>    
-            
+        </div>
       </div>    
     `;    
   }).join("");    
