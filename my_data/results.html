@@ -133,7 +133,7 @@ fetch("buses.json")
       <div class="bus-card d-flex gap-3">
         <img src="${bus.image}" class="bus-image" draggable="false">
 
-        <div class="flex-grow-1">
+        <div class="d-flex gap-2 align-items-center">
 
           <!-- RUN STATUS -->
           <div class="status-badge ${bus.isCancelled ? 'cancelled' : 'running'}">
