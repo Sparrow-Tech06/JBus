@@ -130,10 +130,10 @@ fetch("buses.json")
     const arrivalTime = fromStop ? fromStop.time : "--";
 
     return `
-      <div class="bus-card d-flex gap-3">
+      <div class="bus-card d-flex gap-2 align-items-center">
         <img src="${bus.image}" class="bus-image" draggable="false">
 
-        <div class="d-flex gap-2 align-items-center">
+        <div class="flex-grow-1">
 
           <!-- RUN STATUS -->
           <div class="status-badge ${bus.isCancelled ? 'cancelled' : 'running'}">
