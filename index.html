@@ -135,7 +135,7 @@ const handleSearch = (input, notFound) => {
 
   if (val.length < 2) {
     datalist.innerHTML = "";
-    notFound.style.display = "none";
+    notFound.style.display = (val.length >= 2 && matches.length === 0) ? "block" : "none";
     return;
   }
 
