@@ -125,7 +125,4 @@
     }  
 
   /****************************************/
-.spin { animation: spin 1s linear infinite; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .notfound { color:red; font-size:13px; display:block; }
   
