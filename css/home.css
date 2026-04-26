@@ -44,23 +44,7 @@
       position: relative;
       background: #3569b9;
     }
-    header .header-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-    .skeleton {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #d7d7d7 25%, #ececec 50%, #d7d7d7 75%);
-      background-size: 200% 100%;
-      animation: skeleton-loading 1.5s infinite;
-    }
-    @keyframes skeleton-loading {
-      from { background-position: 200% 0; }
-      to { background-position: -200% 0; }
-    }
+  
     .form-control:focus {
       box-shadow: none !important;
       border-color: #ced4da !important; /* Default border color */
@@ -98,38 +82,7 @@
       transform: scale(0.96);
     }
     /* Horizontal Scroll Cards */
-    .traveler-scroll {
-      display: flex;
-      gap: 15px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 10px;
-    }
-    .traveler-scroll::-webkit-scrollbar {
-      display: none;
-    }
-    .traveler-card {
-      flex: 0 0 180px;
-      scroll-snap-align: start;
-      border: 1px solid var(--divider);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      background: var(--search-box);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s;
-      position: relative;
-    }
-    .traveler-card:hover {
-      transform: scale(0.96);
-    }
-    .traveler-card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      display: none;
-    }
+
     /********************************************/
     .navbar {
       background: #3569b9 !important;
