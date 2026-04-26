@@ -17,17 +17,6 @@
                --divider: rgba(255, 255, 255, 0.06);
              }
           }
- /**********************************************/
-    * {
-      margin: 0 ;
-      padding: 0 ;
-      box-sizing: border-box ;
-      user-select: none ;
-    }
-    body {
-      background: var(--bg-light) ;
-      font-family: 'Inter', sans-serif;
-    }
 /***********************************************/
     .card { border: none ; background: var(--search-box); border: 1.5px solid var(--divider); }
     .notfound { color: red; font-size: 14px; display: none; margin-top:5px; }
