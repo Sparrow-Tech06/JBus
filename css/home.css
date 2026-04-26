@@ -30,7 +30,7 @@
     }
     .form-label i {
       background: #3569b9;
-      font-size: 16px;
+      font-size: 18px;
       padding: 4px 8px;
       border-radius: 50%;
       color: #fff;
@@ -82,11 +82,11 @@
     }
     .notification-icon i {
       color: #fff;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
     }
 /**************** Offcanvas Modern Menu *****************/
     .offcanvas {
-      max-width: 80%;
+      max-width: 82%;
     }
     .offcanvas-header {
       background: #3569b9;
@@ -114,4 +114,10 @@
     }  
 
   /****************************************/
-  
+    #stopsList { background: red ; z-index:999; border-radius:0px; }
+
+
+
+
+
+
