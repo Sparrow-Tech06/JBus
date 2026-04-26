@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  
+  <title>JBus: Find your bus</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <style>
+    body { background:#f8f9fa; }
+
+    .navbar {
+      background:#0d6efd;
+    }
+
+    .navbar-brand, .toggle-btn, .notification-icon {
+      color:#fff;
+    }
+
+    .district {
+      font-size:12px;
+      color:#ddd;
+    }
+
+    .search-box {
+      margin-top:20px;
+    }
+
+    .card {
+      border-radius:12px;
+      padding:15px;
+    }
+
+    .search-btn {
+      background:#0d6efd;
+      color:#fff;
+      font-weight:500;
+    }
+
+    .notfound {
+      font-size:12px;
+      color:red;
+      display:none;
+    }
+
+    .loading-text {
+      font-size:14px;
+      color:#666;
+    }
+
+    .spin {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<nav class="navbar shadow-sm sticky-top">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <div>
+      <div class="d-flex align-items-center">
+        <button class="btn p-0 me-3 toggle-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
+          <i class="bi bi-list fs-4"></i>
+        </button>
+        <span class="navbar-brand">
+          <i class="bi bi-bus-front-fill me-1"></i> JBus
+        </span>
+      </div>
+      <div class="district">
+        <i class="bi bi-geo-alt-fill text-warning"></i> Jhargram District
+      </div>
+    </div>
+
+    <div>
+      <a href="notifications/notifications.html" class="notification-icon">
+        <i class="bi bi-bell-fill fs-5"></i>
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<div class="offcanvas offcanvas-start text-bg-dark" id="offcanvasNav">
+  <div class="offcanvas-header">
+    <h5><i class="bi bi-menu-button-wide me-2"></i>Menu</h5>
+    <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body p-0">
+    <ul class="nav flex-column">
+      <li v-for="item in menuItems" class="nav-item border-bottom">
+        <a class="nav-link text-white py-3 px-3" :href="item.link">
+          <i :class="'bi ' + item.icon + ' me-2'"></i> {{ item.text }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="container">
+
+  <!-- Loading -->
+  <div v-if="isLoading" class="text-center py-4 loading-text">
+    <i class="bi bi-arrow-repeat spin"></i> Loading bus stops...
+  </div>
+
+  <!-- SEARCH -->
+  <section v-else class="search-box">
+    <form @submit.prevent="submitForm" class="card mx-auto">
+
+      <!-- FROM -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-geo-alt me-2"></i> From
+        </label>
+        <input type="text"
+          v-model="from"
+          @input="filterStops('from')"
+          class="form-control"
+          list="stopsList"
+          placeholder="Enter departure location">
+
+        <div v-if="showNotFoundFrom" class="notfound d-block">
+          Not found, try another
+        </div>
+      </div>
+
+      <!-- TO -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-geo me-2"></i> To
+        </label>
+        <input type="text"
+          v-model="to"
+          @input="filterStops('to')"
+          class="form-control"
+          list="stopsList"
+          placeholder="Enter destination">
+
+        <div v-if="showNotFoundTo" class="notfound d-block">
+          Not found, try another
+        </div>
+      </div>
+
+      <!-- BUS NO -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-upc-scan me-2"></i> Bus No
+        </label>
+        <input type="text"
+          v-model="busNo"
+          class="form-control"
+          placeholder="Enter bus number">
+      </div>
+
+      <!-- Suggestions -->
+      <datalist id="stopsList">
+        <option v-for="stop in filteredStops" :value="stop"></option>
+      </datalist>
+
+      <button class="btn search-btn w-100">
+        Search
+      </button>
+
+    </form>
+  </section>
+
+</main>
+
+</div>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vue App -->
+<script>
+const { createApp } = Vue;
+
+createApp({
+  data() {
+    return {
+      isLoading: true,
+      allStops: [],
+      filteredStops: [],
+
+      from: "",
+      to: "",
+      busNo: "",
+
+      showNotFoundFrom: false,
+      showNotFoundTo: false,
+
+      menuItems: [
+        { icon: "bi-ticket-detailed", text: "Book a bus", link: "testing/index.html" },
+        { icon: "bi-exclamation-circle", text: "Report Issue", link: "Support/report-issue.html" },
+        { icon: "bi-search", text: "Lost & Found", link: "Support/lost-found.html" },
+        { icon: "bi-bus-front", text: "Suggest Feature", link: "demo/index.html" },
+        { icon: "bi-headset", text: "Support", link: "testing/index.html" },
+        { icon: "bi-info-circle", text: "About Us", link: "my_data/index.html" }
+      ]
+    };
+  },
+
+  mounted() {
+    this.loadStops();
+  },
+
+  methods: {
+
+    async loadStops() {
+      try {
+        // Cache check
+        const cache = localStorage.getItem("stops");
+
+        if (cache) {
+          this.allStops = JSON.parse(cache);
+        } else {
+          const res = await fetch("my_data/buses.json");
+          const data = await res.json();
+
+          let set = new Set();
+          data.buses.forEach(bus => {
+            bus.stops.forEach(s => set.add(s.name));
+          });
+
+          this.allStops = [...set];
+          localStorage.setItem("stops", JSON.stringify(this.allStops));
+        }
+
+      } catch (e) {
+        console.error("Load error:", e);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    filterStops(type) {
+      let value = type === "from" ? this.from : this.to;
+
+      if (value.length < 2) {
+        this.filteredStops = [];
+        this.showNotFoundFrom = false;
+        this.showNotFoundTo = false;
+        return;
+      }
+
+      const result = this.allStops.filter(s =>
+        s.toLowerCase().includes(value.toLowerCase())
+      );
+
+      this.filteredStops = result;
+
+      if (type === "from") {
+        this.showNotFoundFrom = result.length === 0;
+      } else {
+        this.showNotFoundTo = result.length === 0;
+      }
+    },
+
+    submitForm() {
+      if (this.busNo) {
+        location.href = `my_data/bus.html?busNo=${encodeURIComponent(this.busNo)}`;
+      } else if (this.from && this.to) {
+        location.href = `my_data/results.html?from=${encodeURIComponent(this.from)}&to=${encodeURIComponent(this.to)}`;
+      }
+    }
+
+  }
+
+}).mount("#app");
+</script>
+
+</body>
+</html>
