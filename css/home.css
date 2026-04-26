@@ -143,31 +143,6 @@
     }  
 
   /****************************************/
-    .rate-us h2 {
-      font-size: 22px;
-      font-weight: 700;
-    }
-    .rate-us-text {
-      font-size: 15px;
-      text-align: left;
-    }
-    .btn-rate {
-      display: inline-block;
-      background-color: #3569b9;
-      color: #fff;
-      font-weight: 600;
-      padding: 10px 0;
-      border-radius: 50px;
-      text-decoration: none;
-      text-align: center;
-      width: 100%;
-      transition: background 0.2s ease-in-out;
-    }
-    .btn-rate:hover {
-      background-color: #3569b9;
-      color: #fff;
-    }
-    /***********************/
 .spin { animation: spin 1s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     .notfound { color:red; font-size:13px; display:block; }
