@@ -1,20 +1,10 @@
 
    :root {  
-      --primary-color: #274D8C;  
-      --secondary-color: #2D6B8D;  
-      --accent-color: #FFA500;  
-      --bg-light: #FFFFFF ;  
-      --text-dark: #343A40;  
-      --text-muted: #6C757D;
-      --search-box: #ffffff ;
-      --divider: none ;
+      
     } 
     @media (prefers-color-scheme: dark) {
             :root {
-               --text-dark: #ffffff ;  
-               --bg-light: #0f1724 ;
-               --search-box: #111827 ;
-               --divider: rgba(255, 255, 255, 0.06);
+               
              }
           }
 /***********************************************/
