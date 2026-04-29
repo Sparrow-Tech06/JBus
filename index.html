@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JBus - Find Your Bus</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body{
+  background:#f5f7fb;
+}
+
+/* Navbar */
+.navbar{
+  background:#0d6efd;
+  color:white;
+  padding:10px 0;
+}
+
+/* Card */
+.search-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  margin-top:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* Swap Button */
+.swap-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:none;
+  background:#0d6efd;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+}
+
+/* Suggestion Box */
+.input-group-wrap{
+  position:relative;
+}
+
+.suggestion-box{
+  position:absolute;
+  top:100%;
+  left:0;
+  width:100%;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px;
+  z-index:1000;
+  max-height:200px;
+  overflow-y:auto;
+  display:none;
+}
+
+.suggestion-item{
+  padding:10px;
+  cursor:pointer;
+}
+
+.suggestion-item:hover{
+  background:#f1f1f1;
+}
+
+.notfound{
+  display:none;
+  font-size:12px;
+  color:red;
+}
+
+/* Button */
+.search-btn{
+  background:#0d6efd;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="container d-flex justify-content-between">
+    <i class="bi bi-list"></i>
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-bus-front-fill"></i>
+      <span>JBus</span>
+    </div>
+    <i class="bi bi-bell-fill"></i>
+  </div>
+</header>
+
+<div class="container">
+  <div class="search-card">
+
+    <form id="form">
+
+      <!-- ROW -->
+      <div class="row g-2 align-items-end">
+
+        <!-- FROM -->
+        <div class="col-5 input-group-wrap">
+          <label class="form-label">From</label>
+          <input id="from" class="form-control" placeholder="Enter location">
+          <div id="fromBox" class="suggestion-box"></div>
+          <div id="fromNF" class="notfound">Not found</div>
+        </div>
+
+        <!-- SWAP -->
+        <div class="col-2 text-center">
+          <button type="button" class="swap-btn" id="swapBtn">
+            <i class="bi bi-arrow-left-right"></i>
+          </button>
+        </div>
+
+        <!-- TO -->
+        <div class="col-5 input-group-wrap">
+          <label class="form-label">To</label>
+          <input id="to" class="form-control" placeholder="Enter destination">
+          <div id="toBox" class="suggestion-box"></div>
+          <div id="toNF" class="notfound">Not found</div>
+        </div>
+
+      </div>
+
+      <!-- BUS -->
+      <div class="mt-3">
+        <label class="form-label">Bus No</label>
+        <input id="bus" class="form-control" placeholder="Optional">
+      </div>
+
+      <button class="search-btn w-100 mt-3">Search</button>
+
+    </form>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// =====================
+// STATE
+// =====================
+let allStops = [];
+
+// =====================
+// FETCH + CACHE
+// =====================
+async function loadStops(){
+  try{
+    const cached = sessionStorage.getItem("stops");
+    if(cached){
+      allStops = JSON.parse(cached);
+      return;
+    }
+
+    const res = await fetch("my_data/buses.json");
+    if(!res.ok) throw new Error("Failed to load JSON");
+
+    const data = await res.json();
+
+    const set = new Set();
+    data.buses.forEach(b=>{
+      b.stops.forEach(s=>{
+        if(s.name) set.add(s.name);
+      });
+    });
+
+    allStops = [...set];
+    sessionStorage.setItem("stops", JSON.stringify(allStops));
+
+  }catch(err){
+    console.error(err);
+  }
+}
+
+loadStops();
+
+// =====================
+// UTILS
+// =====================
+const debounce = (fn, delay=200)=>{
+  let t;
+  return (...args)=>{
+    clearTimeout(t);
+    t = setTimeout(()=>fn(...args), delay);
+  };
+};
+
+// =====================
+// SEARCH
+// =====================
+function search(input, box, nf){
+  const val = input.value.toLowerCase().trim();
+
+  if(val.length < 2){
+    box.style.display = "none";
+    nf.style.display = "none";
+    return;
+  }
+
+  const result = allStops
+    .filter(s => s.toLowerCase().includes(val))
+    .slice(0,10);
+
+  if(result.length === 0){
+    nf.style.display = "block";
+    box.style.display = "none";
+    return;
+  }
+
+  nf.style.display = "none";
+
+  box.innerHTML = result.map(s => `
+    <div class="suggestion-item" data-val="${s}">
+      <i class="bi bi-geo-alt"></i> ${s}
+    </div>
+  `).join("");
+
+  box.style.display = "block";
+
+  box.querySelectorAll(".suggestion-item").forEach(item=>{
+    item.addEventListener("click", ()=>{
+      input.value = item.dataset.val;
+      box.style.display = "none";
+    });
+  });
+}
+
+// =====================
+// BIND INPUT
+// =====================
+function bind(id){
+  const input = document.getElementById(id);
+  const box = document.getElementById(id+"Box");
+  const nf = document.getElementById(id+"NF");
+
+  input.addEventListener("input", debounce(()=>{
+    search(input, box, nf);
+  }));
+
+  document.addEventListener("click", e=>{
+    if(!input.contains(e.target) && !box.contains(e.target)){
+      box.style.display = "none";
+    }
+  });
+}
+
+bind("from");
+bind("to");
+
+// =====================
+// SWAP
+// =====================
+document.getElementById("swapBtn").addEventListener("click", ()=>{
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+
+  [from.value, to.value] = [to.value, from.value];
+});
+
+// =====================
+// SUBMIT
+// =====================
+document.getElementById("form").addEventListener("submit", e=>{
+  e.preventDefault();
+
+  const from = document.getElementById("from").value.trim();
+  const to = document.getElementById("to").value.trim();
+  const bus = document.getElementById("bus").value.trim();
+
+  if(bus){
+    location.href = `my_data/bus.html?busNo=${encodeURIComponent(bus)}`;
+    return;
+  }
+
+  if(!from || !to){
+    alert("Please enter From and To");
+    return;
+  }
+
+  location.href = `my_data/results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+});
+</script>
+
+</body>
+</html>
