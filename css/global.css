@@ -20,7 +20,14 @@
 
 @media (prefers-color-scheme: dark) {
  :root {
-      --body-bg: #16181d ;
+      --body-bg: linear-gradient(
+    to bottom,
+    var(--primary-color) 0%,
+    rgba(53, 105, 185, 0.8) 15%,
+    rgba(53, 105, 185, 0.5) 30%,
+    rgba(53, 105, 185, 0.2) 45%,
+    #ffffff 50%
+  ); ;
       
       --header: #22252b ;
       --border:#2f3440;
