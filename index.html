@@ -152,6 +152,26 @@ body{
 
 <script>
 // =====================
+// Sidebar (Data Driven)
+// =====================
+const menuItems = [
+  { icon: "bi-ticket-detailed", text: "Book a bus", link: "testing/index.html" },
+  { icon: "bi-exclamation-circle", text: "Report a Issue", link: "Debug.html" },
+  { icon: "bi-exclamation-circle", text: "Report a Issue", link: "Support/report-issue.html" },
+  { icon: "bi-search", text: "Lost & Found Items", link: "Support/lost-found.html" },
+  { icon: "bi-bus-front", text: "Suggest a feature", link: "demo/index.html" },
+  { icon: "bi-headset", text: "Support", link: "testing/index.html" },
+  { icon: "bi-info-circle", text: "About us", link: "my_data/index.html" }
+];
+
+menuList.innerHTML = menuItems.map((item, i) => `
+  <li class="nav-item ${i !== menuItems.length - 1 ? 'border-bottom' : ''}">
+    <a class="nav-link py-3" onclick="location.href='${item.link}'">
+      <i class="bi ${item.icon} me-2"></i> ${item.text}
+    </a>
+  </li>
+`).join("");
+// =====================
 // STATE
 // =====================
 let allStops = [];
