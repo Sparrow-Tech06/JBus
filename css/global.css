@@ -22,7 +22,7 @@
  :root {
       --body-bg: linear-gradient(
     to bottom,
-    var(--primary-color) 0%,
+    var(--header) 0%,
     rgba(53, 105, 185, 0.8) 15%,
     rgba(53, 105, 185, 0.5) 30%,
     rgba(53, 105, 185, 0.2) 45%,
