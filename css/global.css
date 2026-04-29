@@ -5,7 +5,14 @@
   /* --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif; */  /*  THIS IS FOR SYSTEM FONTS */
   --font-main:"Open Sans", sans-serif;
   
-  --body-bg:#ffffff;
+  --body-bg: linear-gradient(
+    to bottom,
+    var(--header) 0%,
+    rgba(53, 105, 185, 0.8) 15%,
+    rgba(53, 105, 185, 0.5) 30%,
+    rgba(53, 105, 185, 0.2) 45%,
+    #ffffff 50%
+  );
   --header: #3569b9 ;
   --border:#eeeeee;
   --icon-bg: #FFE0C2 ;
@@ -27,7 +34,7 @@
     rgba(53, 105, 185, 0.5) 30%,
     rgba(53, 105, 185, 0.2) 45%,
     #ffffff 50%
-  ); ;
+  );
       
       --header: #22252b ;
       --border:#2f3440;
