@@ -26,15 +26,17 @@
       max-width: 660px;
     }
 /* SMALL UX */
-.swap-btn{
-  position:absolute;
-  right:10px;
-  top:30%;
-  border:none;
-  background:#fff;
+.swap-btn {
+  width:42px;
+  height:42px;
   border-radius:50%;
-  width:36px;
-  height:36px;
+  border:none;
+  background:#0d6efd;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
   box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
 /******************************************/
