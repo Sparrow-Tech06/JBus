@@ -22,9 +22,7 @@
 }
 
 /**********************************†*/
-    .container {
-      max-width: 660px;
-    }
+ .container { max-width: 660px;  }
 /* SMALL UX */
 .swap-btn {
   width:42px;
@@ -54,9 +52,9 @@
     .search-card{
   background:white;
   border-radius:16px;
-  padding:20px;
+  padding:10px;
   margin-top:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.05);
+ /* box-shadow:0 10px 25px rgba(0,0,0,0.05);  */
 }
     .search-btn {
       background: #3569b9;
@@ -73,14 +71,14 @@
       transform: scale(0.96);
     }
 /**************** SUGGESTION ***************/
-.input-group-wrap{position:relative;}
+.input-group-wrap{ position:relative; }
 
 .suggestion-box{
   position:absolute;
   top:100%;
   left:0;
   width:100%;
-  background:#fff;
+  background:#f8f9fa;
   border:1px solid #ddd;
   border-radius:8px;
   z-index:1000;
