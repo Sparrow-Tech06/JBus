@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>Bus Results</title>
 
@@ -14,19 +13,18 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <style>
 
 :root{
-  --primary:#3569b9;
-  --primary-light:#edf4ff;
-  --bg:#f5f7fb;
+  --primary:#2563eb;
   --text:#111827;
   --muted:#6b7280;
-  --border:#edf1f7;
+  --border:#eceff3;
+  --bg:#f5f7fb;
+  --card:#ffffff;
 }
 
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  user-select:none;
   -webkit-tap-highlight-color:transparent;
 }
 
@@ -34,7 +32,7 @@ body{
   background:var(--bg);
   font-family:system-ui;
   color:var(--text);
-  padding-bottom:40px;
+  padding-bottom:30px;
 }
 
 /* HEADER */
@@ -43,48 +41,43 @@ body{
   position:sticky;
   top:0;
   z-index:1000;
-  background:#ffffffcc;
-  backdrop-filter:blur(12px);
-  padding:14px 16px;
+  background:#ffffffee;
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
+  padding:14px 16px;
 }
 
-.top-title{
-  font-size:20px;
+.page-title{
+  font-size:19px;
   font-weight:700;
 }
 
-.route-chip{
-  background:var(--primary-light);
-  color:var(--primary);
-  padding:7px 12px;
-  border-radius:999px;
+.route-info{
   font-size:13px;
-  font-weight:600;
+  color:var(--muted);
+  margin-top:2px;
 }
 
 /* RESULTS */
 
 #results{
-  padding:14px;
+  padding:12px;
 }
 
 /* CARD */
 
 .bus-card{
-  position:relative;
-  display:flex;
-  gap:12px;
+  background:var(--card);
+  border-radius:18px;
   padding:12px;
   margin-bottom:12px;
-  border-radius:22px;
-  background:#fff;
-  overflow:hidden;
   border:1px solid var(--border);
-  box-shadow:
-  0 2px 8px rgba(0,0,0,.03);
 
-  transition:.25s;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+
+  transition:.2s;
   cursor:pointer;
 }
 
@@ -92,31 +85,21 @@ body{
   transform:scale(.985);
 }
 
-.bus-card::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  width:5px;
-  height:100%;
-  background:var(--primary);
-}
-
 /* IMAGE */
 
 .bus-image{
-  width:76px;
-  height:76px;
-  border-radius:18px;
+  width:72px;
+  height:72px;
+  border-radius:14px;
   object-fit:cover;
+  background:#f1f1f1;
   flex-shrink:0;
-  background:#f2f2f2;
 }
 
 /* CONTENT */
 
 .bus-name{
-  font-size:16px;
+  font-size:15px;
   font-weight:700;
   margin-bottom:2px;
 }
@@ -124,7 +107,7 @@ body{
 .bus-route{
   font-size:13px;
   color:var(--muted);
-  margin-bottom:8px;
+  margin-bottom:10px;
 }
 
 /* STATUS */
@@ -133,50 +116,51 @@ body{
   display:inline-flex;
   align-items:center;
   gap:5px;
+
   font-size:11px;
-  font-weight:700;
-  padding:5px 10px;
+  font-weight:600;
+
+  padding:4px 9px;
   border-radius:999px;
+
   margin-bottom:8px;
 }
 
 .running{
-  background:#e9f8ef;
-  color:#1e9e55;
+  background:#eef7f1;
+  color:#1f8b4c;
 }
 
 .cancelled{
-  background:#ffecec;
-  color:#df3b3b;
+  background:#fff0f0;
+  color:#d63c3c;
 }
 
-/* ARRIVAL */
+/* BOTTOM */
 
-.arrival-box{
+.bottom-row{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  background:#f7faff;
-  border-radius:14px;
-  padding:10px 12px;
+  align-items:center;
 }
 
-.arrival-left{
+.arrival{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
 }
 
-.clock{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:#eaf2ff;
-  color:var(--primary);
+.arrival-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#eff5ff;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:18px;
+
+  color:var(--primary);
 }
 
 .arrival-text small{
@@ -186,11 +170,11 @@ body{
 }
 
 .arrival-text strong{
-  font-size:15px;
+  font-size:14px;
 }
 
-.arrow-icon{
-  color:var(--primary);
+.arrow{
+  color:#9ca3af;
   font-size:18px;
 }
 
@@ -198,110 +182,91 @@ body{
 
 .modal-content{
   border:none;
-  border-radius:0;
 }
 
 .modal-header{
-  background:#fff;
   border-bottom:1px solid var(--border);
 }
 
 .modal-title{
+  font-size:17px;
   font-weight:700;
 }
 
 .route-top{
-  padding:18px;
-  background:#fff;
+  padding:14px 16px;
   border-bottom:1px solid var(--border);
+  font-size:14px;
+  color:var(--muted);
 }
 
-.route-badge{
-  background:var(--primary-light);
-  color:var(--primary);
-  padding:8px 14px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:13px;
-}
-
-.timeline{
-  position:relative;
-  margin-left:12px;
-}
-
-.timeline::before{
-  content:"";
-  position:absolute;
-  left:16px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:#d9e4f8;
-}
+/* STOPS */
 
 .stop-item{
-  position:relative;
   display:flex;
-  gap:14px;
-  padding:14px 0;
+  gap:12px;
+  padding:14px 16px;
+  position:relative;
 }
 
-.stop-dot{
-  width:34px;
-  height:34px;
+.stop-item:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:32px;
+  top:48px;
+  width:2px;
+  height:100%;
+  background:#e5e7eb;
+}
+
+.stop-icon{
+  width:32px;
+  height:32px;
   border-radius:50%;
-  background:#3569b9;
-  color:#fff;
+  background:#eff5ff;
+
+  color:var(--primary);
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   flex-shrink:0;
   z-index:2;
-  font-size:13px;
-}
-
-.stop-content{
-  background:#fff;
-  border-radius:16px;
-  padding:12px;
-  flex-grow:1;
-  border:1px solid var(--border);
 }
 
 .stop-time{
-  color:var(--primary);
+  font-size:14px;
   font-weight:700;
-  font-size:15px;
 }
 
 .stop-name{
-  font-size:14px;
+  font-size:13px;
+  color:var(--muted);
   margin-top:2px;
 }
 
 /* SKELETON */
 
 .skeleton{
-  animation:pulse 1.2s infinite;
   background:linear-gradient(
   90deg,
-  #f2f2f2 25%,
-  #e9e9e9 37%,
-  #f2f2f2 63%
+  #f1f1f1 25%,
+  #e7e7e7 37%,
+  #f1f1f1 63%
   );
+
   background-size:400% 100%;
+  animation:loading 1.2s infinite;
+
+  height:100px;
+  border-radius:18px;
+  margin-bottom:12px;
 }
 
-@keyframes pulse{
+@keyframes loading{
   0%{background-position:100% 50%;}
   100%{background-position:0 50%;}
-}
-
-.skeleton-card{
-  height:110px;
-  border-radius:22px;
-  margin-bottom:12px;
 }
 
 </style>
@@ -309,15 +274,15 @@ body{
 
 <body>
 
-<!-- HEADER -->
+<!-- TOPBAR -->
 
-<div class="topbar d-flex justify-content-between align-items-center">
+<div class="topbar">
 
-  <div class="top-title">
+  <div class="page-title">
     Available Buses
   </div>
 
-  <div class="route-chip" id="routeChip">
+  <div class="route-info" id="routeInfo">
     Loading...
   </div>
 
@@ -327,10 +292,9 @@ body{
 
 <div id="results">
 
-  <!-- Skeleton -->
-  <div class="skeleton skeleton-card"></div>
-  <div class="skeleton skeleton-card"></div>
-  <div class="skeleton skeleton-card"></div>
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
 
 </div>
 
@@ -344,7 +308,8 @@ body{
 
       <div class="modal-header">
 
-        <h5 class="modal-title" id="routeModalLabel"></h5>
+        <h5 class="modal-title"
+        id="routeModalLabel"></h5>
 
         <button
         type="button"
@@ -353,17 +318,10 @@ body{
 
       </div>
 
-      <div class="modal-body p-0">
+      <div class="route-top"
+      id="routeTop"></div>
 
-        <div class="route-top text-center">
-
-          <div class="route-badge" id="routeBadge"></div>
-
-        </div>
-
-        <div class="p-3" id="routeContent"></div>
-
-      </div>
+      <div id="routeContent"></div>
 
     </div>
 
@@ -373,13 +331,14 @@ body{
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
+const params =
+new URLSearchParams(window.location.search);
 
 const from = params.get("from");
 const to = params.get("to");
 
-document.getElementById("routeChip").innerHTML =
-`${from} → ${to}`;
+document.getElementById("routeInfo")
+.innerHTML = `${from} → ${to}`;
 
 fetch("buses.json")
 
@@ -415,25 +374,30 @@ fetch("buses.json")
   if(!buses.length){
 
     resultsDiv.innerHTML = `
-      <div class="text-center mt-5">
+
+      <div class="text-center py-5">
+
         <i class="bi bi-bus-front"
-        style="font-size:60px;color:#c6d4ea"></i>
+        style="
+        font-size:55px;
+        color:#cbd5e1;"></i>
 
         <h5 class="mt-3">
           No buses found
         </h5>
 
-        <p class="text-muted">
-          No buses available from
-          ${from} to ${to}
+        <p class="text-muted small">
+          No buses available for this route
         </p>
+
       </div>
+
     `;
 
     return;
   }
 
-  resultsDiv.innerHTML = buses.map((bus,idx)=>{
+  resultsDiv.innerHTML = buses.map((bus,index)=>{
 
     const fromStop = bus.stops.find(
       s => s.name.toLowerCase()
@@ -446,7 +410,7 @@ fetch("buses.json")
     return `
 
     <div class="bus-card"
-    onclick="openRoute(${idx})">
+    onclick="openRoute(${index})">
 
       <img src="${bus.image}"
       class="bus-image"
@@ -466,7 +430,7 @@ fetch("buses.json")
           : 'bi-check-circle-fill'}"></i>
 
           ${bus.isCancelled
-          ? 'Not Running Today'
+          ? 'Not Running'
           : 'Running Today'}
 
         </div>
@@ -476,15 +440,15 @@ fetch("buses.json")
         </div>
 
         <div class="bus-route">
-          ${bus.no} • ${bus.from}
-          → ${bus.to}
+          ${bus.no} •
+          ${bus.from} → ${bus.to}
         </div>
 
-        <div class="arrival-box">
+        <div class="bottom-row">
 
-          <div class="arrival-left">
+          <div class="arrival">
 
-            <div class="clock">
+            <div class="arrival-icon">
               <i class="bi bi-clock"></i>
             </div>
 
@@ -502,8 +466,7 @@ fetch("buses.json")
 
           </div>
 
-          <i class="bi bi-chevron-right
-          arrow-icon"></i>
+          <i class="bi bi-chevron-right arrow"></i>
 
         </div>
 
@@ -522,42 +485,37 @@ fetch("buses.json")
     routeModalLabel.innerHTML =
     `${bus.name} (${bus.no})`;
 
-    routeBadge.innerHTML =
+    routeTop.innerHTML =
     `${bus.from} → ${bus.to}`;
 
-    routeContent.innerHTML = `
+    routeContent.innerHTML =
 
-      <div class="timeline">
+    bus.stops.map(stop => `
 
-        ${bus.stops.map(stop => `
+      <div class="stop-item">
 
-        <div class="stop-item">
+        <div class="stop-icon">
+          <i class="bi bi-geo-alt-fill"></i>
+        </div>
 
-          <div class="stop-dot">
-            <i class="bi bi-geo-alt-fill"></i>
+        <div>
+
+          <div class="stop-time">
+            ${stop.time}
           </div>
 
-          <div class="stop-content">
-
-            <div class="stop-time">
-              ${stop.time}
-            </div>
-
-            <div class="stop-name">
-              ${stop.name}
-            </div>
-
+          <div class="stop-name">
+            ${stop.name}
           </div>
 
         </div>
 
-        `).join("")}
-
       </div>
 
-    `;
+    `).join("");
 
-    new bootstrap.Modal(routeModal).show();
+    new bootstrap.Modal(routeModal)
+    .show();
 
   }
 
@@ -569,4 +527,3 @@ fetch("buses.json")
 
 </body>
 </html>
-
