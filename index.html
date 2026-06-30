@@ -48,24 +48,24 @@
       <div class="row g-2 align-items-end">
 
         <!-- FROM -->
-        <div class="col-5 input-group-wrap">
+        <div class="location-field input-group-wrap">
           <label class="form-label">From</label>
-          <input id="from" class="form-control" placeholder="Enter location">
+          <input id="from" class="form-control" placeholder="Enter location" autocomplete="on">
           <div id="fromBox" class="suggestion-box"></div>
           <div id="fromNF" class="notfound">Not found</div>
         </div>
 
         <!-- SWAP -->
-        <div class="col-2 text-center">
-          <button type="button" class="swap-btn" id="swapBtn">
+        <div class="swap-wrapper">
+          <button type="button" class="swap-btn" id="swapBtn" aria-label="Swap locations">
             <i class="bi bi-arrow-left-right"></i>
           </button>
         </div>
 
         <!-- TO -->
-        <div class="col-5 input-group-wrap">
+        <div class="location-field input-group-wrap">
           <label class="form-label">To</label>
-          <input id="to" class="form-control" placeholder="Enter destination">
+          <input id="to" class="form-control" placeholder="Enter destination" autocomplete="off">
           <div id="toBox" class="suggestion-box"></div>
           <div id="toNF" class="notfound">Not found</div>
         </div>
