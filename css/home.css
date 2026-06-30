@@ -1,6 +1,6 @@
 
    :root {  
-      
+      --primary: #3569b9;
     } 
     @media (prefers-color-scheme: dark) {
             :root {
@@ -67,7 +67,7 @@
  /* box-shadow:0 10px 25px rgba(0,0,0,0.05);  */
 }
     .search-btn {
-      background: #3569b9;
+      background: var(--primary);
       color: #fff;
       border-radius: 25px;
       padding: 12px 20px;
