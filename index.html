@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JBus - Find Your Bus</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<link href="css/global.css" rel="stylesheet">
+<link href="css/home.css" rel="stylesheet">
+<script src="control_center/version-check.js" defer> </script>
+  
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="container d-flex justify-content-between">
+    <button class="btn text-white p-0 me-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
+        <i class="bi bi-list"></i>
+    </button>
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-bus-front-fill"></i>
+      <span>JBus</span>
+    </div>
+    <i class="bi bi-bell-fill"></i>
+  </div>
+</header>
+
+<aside class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNav">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title"><i class="bi bi-menu-button-wide me-2"></i> Menu</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <nav class="offcanvas-body p-0">
+      <ul id="menuList" class="nav flex-column"></ul>
+    </nav>
+</aside>
+
+<div class="container">
+  <div class="search-card">
+
+    <form id="form">
+
+      <!-- ROW -->
+      <div class="row g-2 align-items-end">
+
+        <!-- FROM -->
+        <div class="location-field input-group-wrap">
+          <label class="form-label">From</label>
+          <input id="from" class="form-control" placeholder="Enter location" autocomplete="on">
+          <div id="fromBox" class="suggestion-box"></div>
+          <div id="fromNF" class="notfound">Not found</div>
+        </div>
+
+        <!-- TO -->
+        <div class="location-field input-group-wrap">
+          <label class="form-label">To</label>
+          <input id="to" class="form-control" placeholder="Enter destination" autocomplete="off">
+          <div id="toBox" class="suggestion-box"></div>
+          <div id="toNF" class="notfound">Not found</div>
+        </div>
+
+      </div>
+
+      <!-- BUS -->
+      <div class="mt-3">
+        <label class="form-label">Bus No</label>
+        <input id="bus" class="form-control" placeholder="Optional">
+      </div>
+
+      <button class="search-btn w-100 mt-3">Search</button>
+
+    </form>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// =====================
+// Sidebar (Data Driven)
+// =====================
+const menuItems = [
+  { icon: "bi-ticket-detailed", text: "Book a bus for events", link: "testing/index.html" },
+  { icon: "bi-exclamation-circle", text: "Bus Stand Information", link: "Debug.html" },
+  { icon: "bi-exclamation-circle", text: "Report a Issue", link: "Support/report-issue.html" },
+  { icon: "bi-search", text: "Lost & Found Items", link: "Support/lost-found.html" },
+  { icon: "bi-bus-front", text: "Suggest a feature", link: "demo/index.html" },
+  { icon: "bi-headset", text: "Support", link: "testing/index.html" },
+  { icon: "bi-info-circle", text: "About us", link: "my_data/index.html" }
+];
+
+menuList.innerHTML = menuItems.map((item, i) => `
+  <li class="nav-item ${i !== menuItems.length - 1 ? 'border-bottom' : ''}">
+    <a class="nav-link py-3" onclick="location.href='${item.link}'">
+      <i class="bi ${item.icon} me-2"></i> ${item.text}
+    </a>
+  </li>
+`).join("");
+// =====================
+// STATE
+// =====================
+let allStops = [];
+
+// =====================
+// FETCH + CACHE
+// =====================
+async function loadStops(){
+  try{
+    const cached = sessionStorage.getItem("stops");
+    if(cached){
+      allStops = JSON.parse(cached);
+      return;
+    }
+
+    const res = await fetch("my_data/buses.json");
+    if(!res.ok) throw new Error("Failed to load JSON");
+
+    const data = await res.json();
+
+    const set = new Set();
+    data.buses.forEach(b=>{
+      b.stops.forEach(s=>{
+        if(s.name) set.add(s.name);
+      });
+    });
+
+    allStops = [...set];
+    sessionStorage.setItem("stops", JSON.stringify(allStops));
+
+  }catch(err){
+    console.error(err);
+  }
+}
+
+loadStops();
+
+// =====================
+// UTILS
+// =====================
+const debounce = (fn, delay=200)=>{
+  let t;
+  return (...args)=>{
+    clearTimeout(t);
+    t = setTimeout(()=>fn(...args), delay);
+  };
+};
+
+// =====================
+// SEARCH
+// =====================
+function search(input, box, nf){
+  const val = input.value.toLowerCase().trim();
+
+  if(val.length < 2){
+    box.style.display = "none";
+    nf.style.display = "none";
+    return;
+  }
+
+  const result = allStops
+    .filter(s => s.toLowerCase().includes(val))
+    .slice(0,10);
+
+  if(result.length === 0){
+    nf.style.display = "block";
+    box.style.display = "none";
+    return;
+  }
+
+  nf.style.display = "none";
+
+  box.innerHTML = result.map(s => `
+    <div class="suggestion-item" data-val="${s}">
+      <i class="bi bi-geo-alt"></i> ${s}
+    </div>
+  `).join("");
+
+  box.style.display = "block";
+
+  box.querySelectorAll(".suggestion-item").forEach(item=>{
+    item.addEventListener("click", ()=>{
+      input.value = item.dataset.val;
+      box.style.display = "none";
+    });
+  });
+}
+
+// =====================
+// BIND INPUT
+// =====================
+function bind(id){
+  const input = document.getElementById(id);
+  const box = document.getElementById(id+"Box");
+  const nf = document.getElementById(id+"NF");
+
+  input.addEventListener("input", debounce(()=>{
+    search(input, box, nf);
+  }));
+
+  document.addEventListener("click", e=>{
+    if(!input.contains(e.target) && !box.contains(e.target)){
+      box.style.display = "none";
+    }
+  });
+}
+
+bind("from");
+bind("to");
+
+// =====================
+// SUBMIT
+// =====================
+document.getElementById("form").addEventListener("submit", e=>{
+  e.preventDefault();
+
+  const from = document.getElementById("from").value.trim();
+  const to = document.getElementById("to").value.trim();
+  const bus = document.getElementById("bus").value.trim();
+
+  if(bus){
+    location.href = `my_data/bus.html?busNo=${encodeURIComponent(bus)}`;
+    return;
+  }
+
+  if(!from || !to){
+    alert("Please enter From and To");
+    return;
+  }
+
+  location.href = `my_data/results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+});
+</script>
+
+</body>
+</html>
+
