@@ -20,15 +20,7 @@
 
 @media (prefers-color-scheme: dark) {
  :root {
-      --body-bg: linear-gradient(
-    to bottom,
-    var(--header) 0%,
-    rgba(53, 105, 185, 0.8) 15%,
-    rgba(53, 105, 185, 0.5) 30%,
-    rgba(53, 105, 185, 0.2) 45%,
-    #ffffff 50%
-  );
-      
+      --body-bg: ;
       --header: #22252b ;
       --border:#2f3440;
       --icon-bg:#fff ;
@@ -59,10 +51,6 @@ body {
   background-size: 100% 100vh;
 }
 a { text-decoration:none; color: var(--text) ; }
-
-.newFeature {
-    display: none;
-}
 
 /*****************************************************/
 /*******************************************/
