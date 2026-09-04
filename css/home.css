@@ -75,7 +75,7 @@
       top: calc(100% + 8px);
       left: 0;
       width: 100%;
-      background: var(--primary);
+      background: var(--header);
       border-radius: 18px;
       box-shadow: 0 12px 32px -8px rgba(0, 20, 40, 0.12);
       padding: 0.35rem 0;
@@ -83,10 +83,10 @@
       display: none;
       font-size: 0.9rem;
       font-weight: 450;
-      color: #1e293b;
+      color: var(--primary);
       max-height: 200px;
       overflow-y: auto;
-      border: 1px solid #f0f5fe;
+      border: 1px solid var(--primary);
 }
 
 .suggestion-item{
